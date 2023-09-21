@@ -1,15 +1,21 @@
 # Plan
 
-* PROJECT TITLE
-* YOUR NAME
-* STUDENT ID
-* SUPERVISOR NAME
+* PROJECT TITLE: Privacy Preservation in Human Motion Analysis
+* NAME: Boondirek Kanjanapongporn
+* STUDENT ID: 2833456k
+* SUPERVISOR NAME: Fani Deligianni
 
 Week-by-week plan for the whole project. Update this as you go along.
 
 ## Winter semester
 
 * **Week 1**
+• Arrange the first meeting with Professor Fani Deligianni
+• Read scholars related to Radar Sensing in human activities and healthcare
+    1. Radar signatures of human activities: https://researchdata.gla.ac.uk/848/
+    2. Radar sensing for healthcare: https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/el.2019.2378
+• Prepare questions for the first meeting to set the direction and kickstart the project
+
 * **Week 2**
 * **Week 3**
 * **Week 4**
