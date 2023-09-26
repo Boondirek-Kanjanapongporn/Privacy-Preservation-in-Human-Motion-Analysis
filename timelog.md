@@ -15,16 +15,21 @@
 ### Week 1 ---------------------------------------------------------------------------------
 
 ## 21 September 2023
-
-* [1 hour] Read the project guidance notes
-* [0.5 hour] Created GitHub repository and cloned the project template for the project
-* [1 hour] Modified plan.md, timelog.md, and create .gitignore
-* [1 hour] Read through scholars related to radar sensoring in human activies and healthcare
+* *1 hour* Read the project guidance notes
+* *0.5 hour* Created GitHub repository and cloned the project template for the project
+* *1 hour* Modified plan.md, timelog.md, and create .gitignore
+* *1 hour* Read through scholars related to radar sensoring in human activies and healthcare
     1. Radar signatures of human activities: https://researchdata.gla.ac.uk/848/
     2. Radar sensing for healthcare: https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/el.2019.2378
-* [1 hour] Prepare questions for the first meeting to set the direction and kickstart the project
+* *1 hour* Prepare questions for the first meeting to set the direction and kickstart the project
 
 ## 22 September 2023
+* *1 hour* Meeting with supervisor
+* *2 hours* Read scholars related to the project
 
-* *1 hour* meeting with supervisor
-* *2 hours* writing initial version of test harness
+### Week 2 ---------------------------------------------------------------------------------
+
+## 26 September 2023
+* *2 hours* Update status report to send to supervisor
+* *1 hour* Finished reading "Radar sensing for healthcare" research paper
+* *2 hour* Looked into online materials about machine learning and deep learning
