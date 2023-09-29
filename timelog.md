@@ -32,4 +32,8 @@
 ## 26 September 2023
 * *2 hours* Update status report to send to supervisor
 * *1 hour* Finished reading "Radar sensing for healthcare" research paper
-* *2 hour* Looked into online materials about machine learning and deep learning
+* *3 hours* Looked into online materials about machine learning and deep learning
+* *3 hours* Read research papers about algorithms used on the dataset provided
+
+## 26 September 2023
+* *1 hour* Meeting with supervisor
