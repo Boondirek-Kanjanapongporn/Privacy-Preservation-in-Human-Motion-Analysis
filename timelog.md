@@ -13,7 +13,6 @@
 * Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
 
 ### Week 1 ---------------------------------------------------------------------------------
-
 ## 21 September 2023
 * *1 hour* Read the project guidance notes
 * *0.5 hour* Created GitHub repository and cloned the project template for the project
@@ -28,12 +27,21 @@
 * *2 hours* Read scholars related to the project
 
 ### Week 2 ---------------------------------------------------------------------------------
-
 ## 26 September 2023
 * *2 hours* Update status report to send to supervisor
 * *1 hour* Finished reading "Radar sensing for healthcare" research paper
 * *3 hours* Looked into online materials about machine learning and deep learning
 * *3 hours* Read research papers about algorithms used on the dataset provided
 
-## 26 September 2023
+## 27 September 2023
 * *1 hour* Meeting with supervisor
+
+## 30 September 2023
+* *1 hour* Writing Status Report week 3
+* *2 hours* Read research paper and difference between Pytorch vs TensorFlow
+
+### Week 3 ---------------------------------------------------------------------------------
+## 1 October 2023
+* *2 hours* Read about deep learning, activation function, and back propogation
+* *2 hours* Read about Multilayer Perceptrons and Convulation Neural Network
+* *1 hour* Set up Matlab, watch Matlab tutorials, and open script
