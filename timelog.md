@@ -52,3 +52,7 @@
 
 ## 3 October 2023
 * *1.5 hour* Try to replicate matlab script
+
+## 4 October 2023
+* *1.5 hour* Try to replicate matlab script
+* *0.5 hour* Weeky 3 Meeting with supervisor
