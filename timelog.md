@@ -45,3 +45,10 @@
 * *2 hours* Read about deep learning, activation function, and back propogation
 * *2 hours* Read about Multilayer Perceptrons and Convulation Neural Network
 * *1 hour* Set up Matlab, watch Matlab tutorials, and open script
+
+## 2 October 2023
+* *1 hour* Try using the preprocessing Matlab script to preprocess some dataset file
+* *1.5 hour* Write Status Report week 3 and weekly powerpoint presentation
+
+## 3 October 2023
+* *1.5 hour* Try to replicate matlab script
