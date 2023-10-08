@@ -56,3 +56,7 @@
 ## 4 October 2023
 * *1.5 hour* Try to replicate matlab script
 * *0.5 hour* Weeky 3 Meeting with supervisor
+
+### Week 4 ---------------------------------------------------------------------------------
+## 7 October 2023
+* *4 hours* Continue replicating data preprocess matlab script
