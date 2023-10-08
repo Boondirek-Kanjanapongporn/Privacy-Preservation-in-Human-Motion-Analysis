@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, filtfilt, freqz, spectrogram
+from scipy.signal import butter, lfilter, spectrogram
+from math import floor
 from helperfunctions import *
 
 # Data reading part and load data
@@ -26,26 +27,23 @@ win = np.ones_like(Data_time)
 tmp = np.fft.fftshift(np.fft.fft(Data_time * win, axis=0), axes=0)
 Data_range = tmp[int(NTS/2):, :]
 ns = oddnumber(np.shape(Data_range)[1]) - 1
-Data_range_MTI = np.zeros((np.shape(Data_range)[0], ns))
+Data_range_MTI = np.zeros_like(Data_range, dtype=complex)
 b, a = butter(4, 0.0075, 'high')
 for k in range(Data_range.shape[0]):
-    Data_range_MTI[k, :ns] = filtfilt(b, a, Data_range[k, :ns])
+    Data_range_MTI[k, :ns] = lfilter(b, a, Data_range[k, :ns])
 freq = np.arange(ns) * fs / (2 * ns)
 range_axis = (freq * 3e8 * Tsweep) / (2 * Bw)
-# print(f"range_axis: {np.shape(range_axis)}")
-# print(range_axis[:5])
-Data_range = Data_range[1:, :]
 Data_range_MTI = Data_range_MTI[1:, :]
-# print(f"Data_range: {np.shape(Data_range)}")
-# print(f"Data_range_MTI: {np.shape(Data_range_MTI)}")
+Data_range = Data_range[1:, :]
 plt.figure()
-plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', extent=[0, Data_range_MTI.shape[1], range_axis[0], range_axis[-1]])
-plt.colorbar()
+img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
 plt.xlabel('No. of Sweeps')
 plt.ylabel('Range bins')
 plt.title('Range Profiles after MTI filter')
-plt.ylim(range_axis[0], range_axis[100])
-plt.gca().set_xlim(-60, 0)
+plt.colorbar(label='Amplitude (dB)')
+plt.ylim([1, 100])
+clim = img.get_clim()
+plt.clim(clim[1]-60, clim[1])
 plt.show()
 
 # Spectrogram processing for 2nd FFT to get Doppler
@@ -61,8 +59,7 @@ MD["FFTPoints"] = MD["Pad_Factor"] * MD["TimeWindowLength"]
 MD["DopplerBin"] = MD["PRF"] / MD["FFTPoints"]
 MD["DopplerAxis"] = np.linspace(-MD["PRF"]/2, MD["PRF"]/2, MD["FFTPoints"], endpoint=False)
 MD["WholeDuration"] = Data_range_MTI.shape[1] / MD["PRF"]
-MD["NumSegments"] = int((Data_range_MTI.shape[1] - MD["TimeWindowLength"]) // (MD["TimeWindowLength"] * (1 - MD["OverlapFactor"])))
-
+MD["NumSegments"] = int((Data_range_MTI.shape[1] - MD["TimeWindowLength"]) / floor((MD["TimeWindowLength"] * (1 - MD["OverlapFactor"]))))
 Data_spec_MTI2 = 0
 Data_spec2 = 0
 
@@ -71,7 +68,9 @@ for RBin in range(bin_indl, bin_indu + 1):
     Data_spec_MTI2 += np.abs(Sxx)
     f, t, Sxx = spectrogram(Data_range[RBin, :], fs=fs, nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"])
     Data_spec2 += np.abs(Sxx)
-
+print(f"Data_spec_MTI2: {np.shape(Data_spec_MTI2)}")
+print(Data_spec_MTI2[:5,0])
+print("\n")
 MD["TimeAxis"] = np.linspace(0, MD["WholeDuration"], Data_spec_MTI2.shape[1])
 
 # plt.figure()
