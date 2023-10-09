@@ -1,5 +1,8 @@
 import numpy as np
 
+def filepath(s):
+    return 'src/data/' + s
+
 def complex_converter(s):
     if 'i' in s:
         return complex(s.replace('i', 'j'))
