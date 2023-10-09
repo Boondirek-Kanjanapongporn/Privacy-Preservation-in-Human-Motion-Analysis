@@ -35,16 +35,17 @@ freq = np.arange(ns) * fs / (2 * ns)
 range_axis = (freq * 3e8 * Tsweep) / (2 * Bw)
 Data_range_MTI = Data_range_MTI[1:, :]
 Data_range = Data_range[1:, :]
-# plt.figure()
-# img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
-# plt.xlabel('No. of Sweeps')
-# plt.ylabel('Range bins')
-# plt.title('Range Profiles after MTI filter')
-# plt.colorbar(label='Amplitude (dB)')
-# plt.ylim([1, 100])
-# clim = img.get_clim()
-# plt.clim(clim[1]-60, clim[1])
-# plt.show()
+
+plt.figure()
+img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
+plt.xlabel('No. of Sweeps')
+plt.ylabel('Range bins')
+plt.title('Range Profiles after MTI filter')
+plt.colorbar(label='Amplitude (dB)')
+plt.ylim([1, 100])
+clim = img.get_clim()
+plt.clim(clim[1]-60, clim[1])
+plt.show()
 
 # Spectrogram processing for 2nd FFT to get Doppler
 bin_indl = 10
@@ -70,7 +71,6 @@ for RBin in range(bin_indl, bin_indu + 1):
     Data_spec_MTI2 += np.abs(np.fft.fftshift(Sxx, axes=0))
     f, t, Sxx = spectrogram(Data_range[RBin - 1, :], nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"], return_onesided=False)
     Data_spec2 += np.abs(np.fft.fftshift(Sxx, axes=0))
-
 MD["TimeAxis"] = np.linspace(0, MD["WholeDuration"], Data_spec_MTI2.shape[1])
 Data_spec_MTI2=np.flipud(Data_spec_MTI2)
 
