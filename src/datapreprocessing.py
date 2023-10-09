@@ -5,7 +5,7 @@ from math import floor
 from helperfunctions import *
 
 # Data reading part and load data
-filename = filepath('1P03A01R1.dat')
+filename = filepath('1P10A01R1.dat')
 fd = open(filename,'r')  
 lines = fd.readlines()
 radarData = np.array([complex_converter(line.strip()) for line in lines])
@@ -83,10 +83,13 @@ Data_spec_MTI2_scaled = (Data_spec_MTI2_processed - minV) / (maxV - minV) * (140
 
 # Plot figure 2
 plt.figure()
-plt.imshow(Data_spec_MTI2_scaled, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
+img = plt.imshow(Data_spec_MTI2_processed, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
+# img = plt.imshow(Data_spec_MTI2_scaled, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
 plt.colorbar()
 plt.ylim(-6, 6)
 plt.xlabel('Time[s]')
 plt.ylabel('Velocity [m/s]')
+clim = img.get_clim()
+plt.clim(clim[1]-80, clim[1])
 plt.title(filename.split('/')[-1])
 plt.show()
