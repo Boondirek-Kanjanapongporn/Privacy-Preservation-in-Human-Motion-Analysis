@@ -5,7 +5,7 @@ from math import floor
 from helperfunctions import *
 
 # Data reading part and load data
-filename = 'src/data/1P03A01R1.dat'
+filename = filepath('1P03A01R1.dat')
 fd = open(filename,'r')  
 lines = fd.readlines()
 radarData = np.array([complex_converter(line.strip()) for line in lines])
@@ -36,6 +36,7 @@ range_axis = (freq * 3e8 * Tsweep) / (2 * Bw)
 Data_range_MTI = Data_range_MTI[1:, :]
 Data_range = Data_range[1:, :]
 
+# Plot figure 1
 plt.figure()
 img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
 plt.xlabel('No. of Sweeps')
@@ -45,7 +46,7 @@ plt.colorbar(label='Amplitude (dB)')
 plt.ylim([1, 100])
 clim = img.get_clim()
 plt.clim(clim[1]-60, clim[1])
-plt.show()
+plt.show(block=False)
 
 # Spectrogram processing for 2nd FFT to get Doppler
 bin_indl = 10
@@ -80,6 +81,7 @@ maxV = np.max(Data_spec_MTI2_processed)
 minV = np.min(Data_spec_MTI2_processed)
 Data_spec_MTI2_scaled = (Data_spec_MTI2_processed - minV) / (maxV - minV) * (140 - 100) + 100
 
+# Plot figure 2
 plt.figure()
 plt.imshow(Data_spec_MTI2_scaled, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
 plt.colorbar()
