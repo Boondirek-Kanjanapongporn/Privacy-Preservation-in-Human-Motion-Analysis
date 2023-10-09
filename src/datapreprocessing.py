@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, lfilter, spectrogram
+from scipy.signal import butter, lfilter, spectrogram, windows
 from math import floor
 from helperfunctions import *
 
@@ -35,26 +35,27 @@ freq = np.arange(ns) * fs / (2 * ns)
 range_axis = (freq * 3e8 * Tsweep) / (2 * Bw)
 Data_range_MTI = Data_range_MTI[1:, :]
 Data_range = Data_range[1:, :]
-plt.figure()
-img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
-plt.xlabel('No. of Sweeps')
-plt.ylabel('Range bins')
-plt.title('Range Profiles after MTI filter')
-plt.colorbar(label='Amplitude (dB)')
-plt.ylim([1, 100])
-clim = img.get_clim()
-plt.clim(clim[1]-60, clim[1])
-plt.show()
+# plt.figure()
+# img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
+# plt.xlabel('No. of Sweeps')
+# plt.ylabel('Range bins')
+# plt.title('Range Profiles after MTI filter')
+# plt.colorbar(label='Amplitude (dB)')
+# plt.ylim([1, 100])
+# clim = img.get_clim()
+# plt.clim(clim[1]-60, clim[1])
+# plt.show()
 
 # Spectrogram processing for 2nd FFT to get Doppler
 bin_indl = 10
 bin_indu = 30
-MD = {}
-MD["PRF"] = 1 / Tsweep
-MD["TimeWindowLength"] = 200
-MD["OverlapFactor"] = 0.95
+MD = {
+    "PRF": 1/Tsweep,
+    "TimeWindowLength": 200,
+    "OverlapFactor": 0.95,
+    "Pad_Factor": 4,
+}
 MD["OverlapLength"] = round(MD["TimeWindowLength"] * MD["OverlapFactor"])
-MD["Pad_Factor"] = 4
 MD["FFTPoints"] = MD["Pad_Factor"] * MD["TimeWindowLength"]
 MD["DopplerBin"] = MD["PRF"] / MD["FFTPoints"]
 MD["DopplerAxis"] = np.linspace(-MD["PRF"]/2, MD["PRF"]/2, MD["FFTPoints"], endpoint=False)
@@ -62,14 +63,25 @@ MD["WholeDuration"] = Data_range_MTI.shape[1] / MD["PRF"]
 MD["NumSegments"] = int((Data_range_MTI.shape[1] - MD["TimeWindowLength"]) / floor((MD["TimeWindowLength"] * (1 - MD["OverlapFactor"]))))
 Data_spec_MTI2 = 0
 Data_spec2 = 0
+win = windows.hamming(MD["TimeWindowLength"])
+scaling_factor = 2/(fs * np.sum(win**2))
 for RBin in range(bin_indl, bin_indu + 1):
-    f, t, Sxx = spectrogram(Data_range_MTI[RBin-1, :], nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"])
+    f, t, Sxx = spectrogram(Data_range_MTI[RBin - 1, :], nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"], return_onesided=False)
     Data_spec_MTI2 += np.abs(np.fft.fftshift(Sxx, axes=0))
-    f, t, Sxx = spectrogram(Data_range[RBin-1, :], nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"])
+    f, t, Sxx = spectrogram(Data_range[RBin - 1, :], nperseg=MD["TimeWindowLength"], noverlap=MD["OverlapLength"], nfft=MD["FFTPoints"], return_onesided=False)
     Data_spec2 += np.abs(np.fft.fftshift(Sxx, axes=0))
+
 MD["TimeAxis"] = np.linspace(0, MD["WholeDuration"], Data_spec_MTI2.shape[1])
+Data_spec_MTI2=np.flipud(Data_spec_MTI2)
+
+# Scaling to range 104- 140
+Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
+maxV = np.max(Data_spec_MTI2_processed)  
+minV = np.min(Data_spec_MTI2_processed)
+Data_spec_MTI2_scaled = (Data_spec_MTI2_processed - minV) / (maxV - minV) * (140 - 100) + 100
+
 plt.figure()
-plt.imshow(20 * np.log10(np.abs(Data_spec_MTI2)), aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], MD["DopplerAxis"][0]*3e8/2/5.8e9, MD["DopplerAxis"][-1]*3e8/2/5.8e9])
+plt.imshow(Data_spec_MTI2_scaled, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
 plt.colorbar()
 plt.ylim(-6, 6)
 plt.xlabel('Time[s]')
