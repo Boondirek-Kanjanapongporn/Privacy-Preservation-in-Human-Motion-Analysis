@@ -73,3 +73,8 @@
 ## 10 October 2023
 * *2 hour* Running and reading MNIST collab code
 * *2 hour* Worked on weekly presentation
+
+## 11 October 2023
+* *0.5 hour* Weekly 4 Meeting with supervisor
+
+### Week 5 ---------------------------------------------------------------------------------
