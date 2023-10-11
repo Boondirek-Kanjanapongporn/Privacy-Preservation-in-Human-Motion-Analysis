@@ -69,3 +69,7 @@
 * *0.5 hour* Fix bug in matlab script 
 * *2 hour* Check replicated preprocess code with other dataset
 * *1 hour* Write Status Report week 4 and weekly powerpoint presentation
+
+## 10 October 2023
+* *2 hour* Running and reading MNIST collab code
+* *2 hour* Worked on weekly presentation
