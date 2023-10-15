@@ -30,7 +30,7 @@
 ## 26 September 2023
 * *2 hours* Update status report to send to supervisor
 * *1 hour* Finished reading "Radar sensing for healthcare" research paper
-* *3 hours* Looked into online materials about machine learning and deep learning
+* *3.5 hours* Looked into online materials about machine learning and deep learning
 * *3 hours* Read research papers about algorithms used on the dataset provided
 
 ## 27 September 2023
@@ -38,12 +38,12 @@
 
 ## 30 September 2023
 * *1 hour* Writing Status Report week 3
-* *2 hours* Read research paper and difference between Pytorch vs TensorFlow
+* *2.5 hours* Read research paper and difference between Pytorch vs TensorFlow
 
 ### Week 3 ---------------------------------------------------------------------------------
 ## 1 October 2023
-* *2 hours* Read about deep learning, activation function, and back propogation
-* *2 hours* Read about Multilayer Perceptrons and Convulation Neural Network
+* *2.5 hours* Read about deep learning, activation function, and back propogation
+* *2.5 hours* Read about Multilayer Perceptrons and Convulation Neural Network
 * *1 hour* Set up Matlab, watch Matlab tutorials, and open script
 
 ## 2 October 2023
@@ -51,7 +51,7 @@
 * *1.5 hour* Write Status Report week 3 and weekly powerpoint presentation
 
 ## 3 October 2023
-* *1.5 hour* Try to replicate matlab script
+* *2.5 hour* Try to replicate matlab script
 
 ## 4 October 2023
 * *1.5 hour* Try to replicate matlab script
@@ -78,3 +78,4 @@
 * *0.5 hour* Weekly 4 Meeting with supervisor
 
 ### Week 5 ---------------------------------------------------------------------------------
+* *0.5 hour* Write meeting minutes for the previous weekly meeting
