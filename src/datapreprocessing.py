@@ -2,11 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter, spectrogram
 from math import floor
-from helperfunctions import getfilepath, complex_converter, oddnumber
+from helperfunctions import getfilepath1, getfilepath2, complex_converter, oddnumber
 
-def preprocess(filename, showFig1, showFig2):
+def preprocess(folder, filename, showFig1, showFig2, store):
     # Data reading part and load data
-    filepath = getfilepath(filename)
+    # filepath = getfilepath1(filename)
+    filepath = getfilepath2(folder, filename)
     fd = open(filepath,'r')
     lines = fd.readlines()
     radarData = np.array([complex_converter(line.strip()) for line in lines])
@@ -75,9 +76,19 @@ def preprocess(filename, showFig1, showFig2):
     MD["TimeAxis"] = np.linspace(0, MD["WholeDuration"], Data_spec_MTI2.shape[1])
     Data_spec_MTI2=np.flipud(Data_spec_MTI2)
 
-    # Process Data_spec_MTI2
-    Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
-    print(f"Data_spec_MTI2 shape: {Data_spec_MTI2_processed.shape}")
+    # For File Storing
+    if store:
+        rows, cols = Data_spec_MTI2.shape
+        if cols > 981:
+            print(f"Invalid Shape: {(rows, cols)}")
+            return None
+
+        # Process Data_spec_MTI2
+        Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
+        Data_spec_MTI2_processed = np.pad(Data_spec_MTI2_processed, ((0,0), (0, 981 - cols)), 'constant', constant_values=0)
+    else:
+        # Process Data_spec_MTI2
+        Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
 
     # Plot figure 2
     if showFig2:
@@ -91,3 +102,5 @@ def preprocess(filename, showFig1, showFig2):
         plt.clim(clim[1]-80, clim[1])
         plt.title(filepath.split('/')[-1])
         plt.show()
+    
+    return Data_spec_MTI2_processed
