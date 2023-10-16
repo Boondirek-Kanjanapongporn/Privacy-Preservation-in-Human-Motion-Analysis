@@ -78,4 +78,11 @@
 * *0.5 hour* Weekly 4 Meeting with supervisor
 
 ### Week 5 ---------------------------------------------------------------------------------
+## 15 October 2023
 * *0.5 hour* Write meeting minutes for the previous weekly meeting
+* *2 hours* Finished reading Human Detection and Activity Classification Based on Micro-Doppler Signatures Using Deep Convolutional Neural Networks
+
+## 16 October 2023
+* *0.5 hour* Write script to read all files from folder
+* *1 hour* Write automation script for detecting filename consistency 
+* *1.5 hour* Write more helper functions
