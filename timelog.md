@@ -85,4 +85,7 @@
 ## 16 October 2023
 * *0.5 hour* Write script to read all files from folder
 * *1 hour* Write automation script for detecting filename consistency 
-* *1.5 hour* Write more helper functions
+* *1.5 hours* Write more helper functions
+* *2.5 hours* Write function scripts to reshape data array for any data array shape consistency and find a solution for them
+* *2.5 hours* Loop through all folders and store all files as a 3D list, and saved as file.npy
+* *1.5 hour* Write function scripts to store all labels for all folders
