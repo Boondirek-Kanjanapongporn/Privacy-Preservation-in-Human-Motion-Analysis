@@ -95,4 +95,4 @@
 * *1 hour* Find solutions for uploading large datasets onto Google colab
 * *3 hours* Upload all datasets and labels onto google colab via Kaggle
 * *3 hours* Do data manipulation in google colab for CNN modeling and solved any issues
-* *2 hours* Try to solve session crash issue in google colab
+* *2.5 hours* Try to solve session crash issue in google colab
