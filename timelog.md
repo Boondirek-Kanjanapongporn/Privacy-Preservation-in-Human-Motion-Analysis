@@ -89,3 +89,10 @@
 * *2.5 hours* Write function scripts to reshape data array for any data array shape consistency and find a solution for them
 * *2.5 hours* Loop through all folders and store all files as a 3D list, and saved as file.npy
 * *1.5 hour* Write function scripts to store all labels for all folders
+* *1 hour* Find a way to upload npy file onto google colab
+
+## 17 October 2023
+* *1 hour* Find solutions for uploading large datasets onto Google colab
+* *3 hours* Upload all datasets and labels onto google colab via Kaggle
+* *3 hours* Do data manipulation in google colab for CNN modeling and solved any issues
+* *2 hours* Try to solve session crash issue in google colab
