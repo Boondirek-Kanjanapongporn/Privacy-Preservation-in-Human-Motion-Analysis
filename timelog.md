@@ -96,3 +96,6 @@
 * *3 hours* Upload all datasets and labels onto google colab via Kaggle
 * *3 hours* Do data manipulation in google colab for CNN modeling and solved any issues
 * *2.5 hours* Try to solve session crash issue in google colab
+
+## 18 Octover 2023
+* *2 hours* Try to solve session crash issue in google colab by removing some data from dataset
