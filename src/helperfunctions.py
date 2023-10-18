@@ -9,7 +9,7 @@ def getfilepath1(filename):
     return 'src/raw_data/' + filename
 
 def getfilepath2(folder, filename):
-    return 'D:/Individual Project/' + folder + '/' + filename
+    return 'D:/Individual Project/Data/' + folder + '/' + filename
 
 def complex_converter(s):
     if 'i' in s:
@@ -38,7 +38,7 @@ def oddnumber(x):
     
 # For main.py ------------------------------------------
 def getfilenamesfromdir(folder):
-    path = f"D:/Individual Project/{folder}"
+    path = f"D:/Individual Project/Data/{folder}"
     return [f for f in listdir(path) if isfile(join(path, f))]
 
 def check_consistent_activity(filename):
@@ -54,7 +54,7 @@ def are_folders_clear(folders):
     for folder in folders:
         print(folder + ":")
         isclear = True
-        filenames = getfilenamesfromdir(f"D:/Individual Project/{folder}")
+        filenames = getfilenamesfromdir(f"D:/Individual Project/Data/{folder}")
         for filename in filenames:
             if not check_consistent_activity(filename):
                 isclear = False
@@ -72,7 +72,7 @@ def store_dataset_by_dir(folders):
                 print(filename)
             else:
                 print(f"{filename}: Failed")
-        np.save(f"{folder}.npy", activities_dataset)
+        np.save(f"D:/Individual Project/Preprocessed Data/{folder}.npy", activities_dataset)
         print("Done Saving!!")
 
 def store_label_by_dir(folders):
@@ -82,8 +82,47 @@ def store_label_by_dir(folders):
         filenames = getfilenamesfromdir(folder)
         for filename in filenames:
             # Only for "6 February 2019 NG Homes Dataset"
-            # if filename in ("1P20A01R1", "1P20A01R2", "1P20A01R3", "1P21A01R1", "1P21A01R2", "1P26A01R1", "1P26A01R2", "1P26A01R3"):
+            # if filename in ("1P20A01R1.dat", "1P20A01R2.dat", "1P20A01R3.dat", "1P21A01R1.dat", "1P21A01R2.dat", "1P26A01R1.dat", "1P26A01R2.dat", "1P26A01R3.dat"):
             #     continue
             activities_label.append(int(filename[0]))
-        np.save(f"{folder[:-7]}Label.npy", activities_label)
+        np.save(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy", activities_label)
         print("Done Saving!!")
+
+def vstack_datasets(folders, name):
+    vstackdataset = None
+    for folder in folders:
+        print(folder + ": ")
+        if vstackdataset is None:
+            vstackdataset = np.load(f"D:/Individual Project/Preprocessed Data/{folder}.npy")
+        else:
+            dataset = np.load(f"D:/Individual Project/Preprocessed Data/{folder}.npy")
+            vstackdataset = np.vstack((vstackdataset, dataset))
+    print("Storing...")
+    np.save(f"D:/Individual Project/Preprocessed Data/{name}.npy", vstackdataset)
+    print("Done Saving!!")
+
+def vstack_labels(folders, name):
+    vstacklabel = None
+    for folder in folders:
+        print(folder + ": ")
+        if vstacklabel is None:
+            vstacklabel = np.load(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy")
+        else:
+            label = np.load(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy")
+            vstacklabel = np.concatenate((vstacklabel, label))
+    print("Storing...")
+    np.save(f"D:/Individual Project/Preprocessed Data/{name}.npy", vstacklabel)
+    print("Done Saving!!")
+
+def normalize_dataset(file):
+    dataset = np.load(f"D:/Individual Project/Preprocessed Data/{file}.npy")
+    normalized_list = []
+    for data_array in dataset:
+        data_min = np.min(data_array)
+        data_max = np.max(data_array)
+
+        normalized_data = (data_array - data_min) / (data_max - data_min)
+        normalized_list.append(normalized_data)
+    print("Storing...")
+    np.save(f"D:/Individual Project/Preprocessed Data/{file} Normalized.npy", np.array(normalized_list))
+    print("Done Saving!!")
