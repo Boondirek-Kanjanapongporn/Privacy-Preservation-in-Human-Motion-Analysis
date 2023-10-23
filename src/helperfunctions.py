@@ -37,16 +37,19 @@ def oddnumber(x):
         return y  # Return array
     
 # For main.py ------------------------------------------
+rawdatapath = "D:/Individual Project/Data"
+preprocessdatapath = "D:/Individual Project/Preprocessed Data"
+preprocessdatapath2 = "D:/Individual Project/Preprocessed Data2"
+
 def getfilenamesfromdir(folder):
-    path = f"D:/Individual Project/Data/{folder}"
+    path = f"{rawdatapath}/{folder}"
     return [f for f in listdir(path) if isfile(join(path, f))]
 
 def check_consistent_activity(filename):
-    k, xx, yy, z = re.split('P|A|R', filename)
+    k, _, yy, _ = re.split('P|A|R', filename)
     if int(k) == int(yy):
         return True
     else:
-        # print(f"k: {k}\nxx: {xx}\nyy: {yy}\nz: {z}")
         print(filename)
         return False
 
@@ -54,68 +57,62 @@ def are_folders_clear(folders):
     for folder in folders:
         print(folder + ":")
         isclear = True
-        filenames = getfilenamesfromdir(f"D:/Individual Project/Data/{folder}")
+        filenames = getfilenamesfromdir(f"{rawdatapath}/{folder}")
         for filename in filenames:
             if not check_consistent_activity(filename):
                 isclear = False
         print("isClear: " + str(isclear))
 
-def store_dataset_by_dir(folders):
+# For Preprocessed Data ------------------------------------------------------
+def store_preprocessdata1(folders):
     for folder in folders:
         activities_dataset = []
         print(folder + ":")
         filenames = getfilenamesfromdir(folder)
         for filename in filenames:
-            data = preprocess(folder, filename, False, False, True)
-            if data is not None:
-                activities_dataset.append(data)
-                print(filename)
-            else:
-                print(f"{filename}: Failed")
-        np.save(f"D:/Individual Project/Preprocessed Data/{folder}.npy", activities_dataset)
+            activities_dataset.append(preprocess(folder, filename, False, False, True, False))
+            print(filename)
+        np.save(f"{preprocessdatapath}/{folder}.npy", np.array(activities_dataset))
         print("Done Saving!!")
 
-def store_label_by_dir(folders):
+def store_labels1(folders):
     for folder in folders:
         activities_label = []
         print(folder + ":")
         filenames = getfilenamesfromdir(folder)
         for filename in filenames:
-            # Only for "6 February 2019 NG Homes Dataset"
-            # if filename in ("1P20A01R1.dat", "1P20A01R2.dat", "1P20A01R3.dat", "1P21A01R1.dat", "1P21A01R2.dat", "1P26A01R1.dat", "1P26A01R2.dat", "1P26A01R3.dat"):
-            #     continue
             activities_label.append(int(filename[0]))
-        np.save(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy", activities_label)
+        np.save(f"{preprocessdatapath}/{folder[:-7]}Label.npy", np.array(activities_label))
         print("Done Saving!!")
 
-def vstack_datasets(folders, name):
+def vstack_preprocessdata1(folders, name):
     vstackdataset = None
     for folder in folders:
         print(folder + ": ")
         if vstackdataset is None:
-            vstackdataset = np.load(f"D:/Individual Project/Preprocessed Data/{folder}.npy")
+            vstackdataset = np.load(f"{preprocessdatapath}/{folder}.npy")
         else:
-            dataset = np.load(f"D:/Individual Project/Preprocessed Data/{folder}.npy")
+            dataset = np.load(f"{preprocessdatapath}/{folder}.npy")
             vstackdataset = np.vstack((vstackdataset, dataset))
     print("Storing...")
-    np.save(f"D:/Individual Project/Preprocessed Data/{name}.npy", vstackdataset)
+    np.save(f"{preprocessdatapath}/{name}.npy", vstackdataset)
     print("Done Saving!!")
 
-def vstack_labels(folders, name):
+def vstack_labels1(folders, name):
     vstacklabel = None
     for folder in folders:
         print(folder + ": ")
         if vstacklabel is None:
-            vstacklabel = np.load(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy")
+            vstacklabel = np.load(f"{preprocessdatapath}/{folder[:-7]}Label.npy")
         else:
-            label = np.load(f"D:/Individual Project/Preprocessed Data/{folder[:-7]}Label.npy")
+            label = np.load(f"{preprocessdatapath}/{folder[:-7]}Label.npy")
             vstacklabel = np.concatenate((vstacklabel, label))
     print("Storing...")
-    np.save(f"D:/Individual Project/Preprocessed Data/{name}.npy", vstacklabel)
+    np.save(f"{preprocessdatapath}/{name}.npy", vstacklabel)
     print("Done Saving!!")
 
 def normalize_dataset(file):
-    dataset = np.load(f"D:/Individual Project/Preprocessed Data/{file}.npy")
+    dataset = np.load(f"{preprocessdatapath}/{file}.npy")
     normalized_list = []
     for data_array in dataset:
         data_min = np.min(data_array)
@@ -124,5 +121,63 @@ def normalize_dataset(file):
         normalized_data = (data_array - data_min) / (data_max - data_min)
         normalized_list.append(normalized_data)
     print("Storing...")
-    np.save(f"D:/Individual Project/Preprocessed Data/{file} Normalized.npy", np.array(normalized_list))
+    np.save(f"{preprocessdatapath}/{file} Normalized.npy", np.array(normalized_list))
+    print("Done Saving!!")
+
+# For Preprocessed Data 2 ------------------------------------------------------
+def store_preprocessdata2(folders):
+    for folder in folders:
+        print(folder + ":")
+        filenames = getfilenamesfromdir(folder)
+        for filename in filenames:
+            np.save(f"{preprocessdatapath2}/{folder} Normalized/{filename[:-4]} Normalized.npy", preprocess(folder, filename, False, False, True, True))
+            print(filename)
+        print("Done Saving!!")
+
+def vstack_preprocessdata2(folder, name):
+    datasetlist = []
+    filenames = getfilenamesfromdir(folder)
+    for filename in filenames:
+        print(filename + ": ")
+        datasetlist.append(np.load(f"{preprocessdatapath2}/{folder} Normalized/{filename[:-4]} Normalized.npy"))
+    print("Storing...")
+    np.save(f"{preprocessdatapath2}/{name}.npy", np.array(datasetlist))
+    print("Done Saving!!")
+
+def vstack_datasets2(folders, name):
+    vstackdataset = None
+    for folder in folders:
+        print(folder + ": ")
+        if vstackdataset is None:
+            vstackdataset = np.load(f"{preprocessdatapath2}/{folder}.npy")
+        else:
+            dataset = np.load(f"{preprocessdatapath2}/{folder}.npy")
+            vstackdataset = np.vstack((vstackdataset, dataset))
+    print("Storing...")
+    print(vstackdataset.shape)
+    np.save(f"{preprocessdatapath2}/{name}.npy", vstackdataset)
+    print("Done Saving!!")
+
+def store_labels2(folders):
+    for folder in folders:
+        activities_label = []
+        print(folder + ":")
+        filenames = getfilenamesfromdir(folder)
+        for filename in filenames:
+            activities_label.append(int(filename[0]))
+        np.save(f"{preprocessdatapath2}/{folder[:-8]} Label.npy", np.array(activities_label))
+        print("Done Saving!!")
+
+def vstack_labels2(folders, name):
+    vstacklabel = None
+    for folder in folders:
+        print(folder + ": ")
+        if vstacklabel is None:
+            vstacklabel = np.load(f"{preprocessdatapath2}/{folder[:-8]} Label.npy")
+        else:
+            label = np.load(f"{preprocessdatapath2}/{folder[:-8]} Label.npy")
+            vstacklabel = np.concatenate((vstacklabel, label))
+    print("Storing...")
+    print(vstacklabel.shape)
+    np.save(f"{preprocessdatapath2}/{name}.npy", vstacklabel)
     print("Done Saving!!")
