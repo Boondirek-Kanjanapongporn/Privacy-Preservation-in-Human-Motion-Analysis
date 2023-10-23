@@ -99,3 +99,11 @@
 
 ## 18 Octover 2023
 * *2 hours* Try to solve session crash issue in google colab by removing some data from dataset
+* *1 hour* Weekly 5 Meeting with supervisor
+
+## 19 October 2023
+* *1.5 hours* Try ways to reduce dataset memory space and re-download dataset
+
+### Week 6 ---------------------------------------------------------------------------------
+## 22 October 2023
+* *3 hours* Write scripts to automate storing and grouping datasets and labels
