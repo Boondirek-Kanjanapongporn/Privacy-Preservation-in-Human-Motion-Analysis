@@ -107,3 +107,7 @@
 ### Week 6 ---------------------------------------------------------------------------------
 ## 22 October 2023
 * *3 hours* Write scripts to automate storing and grouping datasets and labels
+
+## 23 October 2023
+* *6 hours* Fix scripts to automate storing and grouping datasets and labels for running in Google Colab
+* *4 hours* Train model in local machine
