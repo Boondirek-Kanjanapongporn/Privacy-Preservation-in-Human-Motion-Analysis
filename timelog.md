@@ -111,3 +111,6 @@
 ## 23 October 2023
 * *6 hours* Fix scripts to automate storing and grouping datasets and labels for running in Google Colab
 * *4 hours* Train model in local machine
+
+## 24 October 2023
+* *8 hours* Tweak CNN models to train the datasets in both local machine and google colab
