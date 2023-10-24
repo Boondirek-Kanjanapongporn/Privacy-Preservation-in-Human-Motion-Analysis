@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter, spectrogram
 from math import floor
-from helperfunctions import getfilepath1, getfilepath2, complex_converter, oddnumber
+from preprocesshelperfunctions import *
 import tensorflow as tf
+from sklearn import preprocessing
 
 def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     # Data reading part and load data
@@ -78,15 +79,44 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     Data_spec_MTI2=np.flipud(Data_spec_MTI2)
     Data_spec_MTI2 = np.float32(Data_spec_MTI2)
 
-    rows, cols = Data_spec_MTI2.shape
-    Data_spec_MTI2 = Data_spec_MTI2.reshape(rows, cols, 1)
+    # Process Data_spec_MTI2
+    Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
+
+    # For Normalization
+    if normalize:
+        data_min = np.min(Data_spec_MTI2_processed)
+        data_max = np.max(Data_spec_MTI2_processed)
+        Data_spec_MTI2_processed = (Data_spec_MTI2_processed - data_min) / (data_max - data_min)
+
+        # Data_spec_MTI2_processed = Data_spec_MTI2_processed/np.linalg.norm(Data_spec_MTI2_processed)
+
+        # min_max_scaler = preprocessing.MinMaxScaler()
+        # Data_spec_MTI2_processed = min_max_scaler.fit_transform(Data_spec_MTI2_processed) 
+
+    rows, cols = Data_spec_MTI2_processed.shape
+    Data_spec_MTI2_processed = Data_spec_MTI2_processed.reshape(rows, cols, 1)
     
     # For File Storing
     if store and cols > 481:
-        Data_spec_MTI2 = tf.image.resize_with_pad(Data_spec_MTI2, target_height=800, target_width=481)
+        Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=800, target_width=481)
 
-    # Process Data_spec_MTI2
-    Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
+    Data_spec_MTI2_processed = Data_spec_MTI2_processed[:, :, 0]
+
+    # # For Normalization
+    # if normalize:
+    #     data_min = np.min(Data_spec_MTI2)
+    #     data_max = np.max(Data_spec_MTI2)
+    #     Data_spec_MTI2 = (Data_spec_MTI2 - data_min) / (data_max - data_min)
+
+    # rows, cols = Data_spec_MTI2.shape
+    # Data_spec_MTI2 = Data_spec_MTI2.reshape(rows, cols, 1)
+    
+    # # For File Storing
+    # if store and cols > 481:
+    #     Data_spec_MTI2 = tf.image.resize_with_pad(Data_spec_MTI2, target_height=800, target_width=481)
+
+    # # Process Data_spec_MTI2
+    # Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
 
     # Plot figure 2
     if showFig2:
@@ -100,10 +130,5 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
         plt.clim(clim[1]-80, clim[1])
         plt.title(filepath.split('/')[-1])
         plt.show()
-
-    if normalize:
-        data_min = np.min(Data_spec_MTI2_processed)
-        data_max = np.max(Data_spec_MTI2_processed)
-        Data_spec_MTI2_processed = (Data_spec_MTI2_processed - data_min) / (data_max - data_min)
 
     return Data_spec_MTI2_processed
