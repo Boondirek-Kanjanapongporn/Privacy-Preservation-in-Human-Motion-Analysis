@@ -87,9 +87,9 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
         data_min = np.min(Data_spec_MTI2_processed)
         data_max = np.max(Data_spec_MTI2_processed)
         Data_spec_MTI2_processed = (Data_spec_MTI2_processed - data_min) / (data_max - data_min)
-
+        # --------------------------
         # Data_spec_MTI2_processed = Data_spec_MTI2_processed/np.linalg.norm(Data_spec_MTI2_processed)
-
+        # --------------------------
         # min_max_scaler = preprocessing.MinMaxScaler()
         # Data_spec_MTI2_processed = min_max_scaler.fit_transform(Data_spec_MTI2_processed) 
 
@@ -102,22 +102,6 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
 
     Data_spec_MTI2_processed = Data_spec_MTI2_processed[:, :, 0]
 
-    # # For Normalization
-    # if normalize:
-    #     data_min = np.min(Data_spec_MTI2)
-    #     data_max = np.max(Data_spec_MTI2)
-    #     Data_spec_MTI2 = (Data_spec_MTI2 - data_min) / (data_max - data_min)
-
-    # rows, cols = Data_spec_MTI2.shape
-    # Data_spec_MTI2 = Data_spec_MTI2.reshape(rows, cols, 1)
-    
-    # # For File Storing
-    # if store and cols > 481:
-    #     Data_spec_MTI2 = tf.image.resize_with_pad(Data_spec_MTI2, target_height=800, target_width=481)
-
-    # # Process Data_spec_MTI2
-    # Data_spec_MTI2_processed = 20 * np.log10(np.abs(Data_spec_MTI2))
-
     # Plot figure 2
     if showFig2:
         plt.figure()
@@ -127,7 +111,10 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
         plt.xlabel('Time[s]')
         plt.ylabel('Velocity [m/s]')
         clim = img.get_clim()
-        plt.clim(clim[1]-80, clim[1])
+        if normalize:
+            plt.clim(clim[1]-0.6, clim[1])
+        else:
+            plt.clim(clim[1]-80, clim[1])
         plt.title(filepath.split('/')[-1])
         plt.show()
 
