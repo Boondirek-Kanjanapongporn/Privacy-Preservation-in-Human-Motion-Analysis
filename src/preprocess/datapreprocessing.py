@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter, spectrogram
 from math import floor
-from preprocesshelperfunctions import *
+from preprocess.preprocesshelperfunctions import *
 import tensorflow as tf
 from sklearn import preprocessing
 
