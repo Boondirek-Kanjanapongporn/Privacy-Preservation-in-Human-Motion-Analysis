@@ -114,3 +114,4 @@
 
 ## 24 October 2023
 * *8 hours* Tweak CNN models to train the datasets in both local machine and google colab
+* *1 hour* Write meeting minutes for previous week 5 meeting
