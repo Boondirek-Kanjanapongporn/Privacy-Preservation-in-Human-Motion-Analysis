@@ -118,3 +118,8 @@
 
 ## 25 October 2023
 * *1 hour* Weekly meeting with superadvisor
+
+### Week 7 ---------------------------------------------------------------------------------
+* *1 hours* Download CUDA and cuDNN for tensorflow GPU purposes
+* *2.5 hours* Try to resolve Tensorflow not detecting GPU
+* *3 hours* Train model in local machine and on google colab
