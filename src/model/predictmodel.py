@@ -5,37 +5,31 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Data2"
+PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 DATASET_FILE = "dataset1to7 Normalized.npy"
 LABEL_FILE = "dataset1to7 Label.npy"
-MODEL_NAME = "activity_recognition_cnn3.h5"
+TRAINED_MODEL = "activity_recognition_cnn.h5"
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
 labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
 
+# Split out data for training + validating and testing data
+START, END = 50, 50+260
+data, labels = data[START:END], labels[START:END]
+
 # Shuffle data and labels
 indices = np.arange(len(data))
 np.random.shuffle(indices)
 
-shuffled_data = data[indices]
-shuffled_labels = labels[indices]
-
-# Define ratio for splitting up data and labels
-train_ratio = 0.8
-
-# Calculate the split point
-split_point = int(len(data) * train_ratio)
-
-# Split the data and labels
-x_test = shuffled_data[split_point:]
-y_test = shuffled_labels[split_point:]
+x_test = data[indices]
+y_test = labels[indices]
 
 print("x_test:", x_test.shape)
 print("y_test:", y_test.shape)
 
 # Load the model
-loaded_model = tf.keras.models.load_model(MODEL_NAME)
+loaded_model = tf.keras.models.load_model(TRAINED_MODEL)
 
 # Predict the model with x_test
 predictions_one_hot = loaded_model.predict([x_test])
@@ -46,7 +40,7 @@ predictions = np.argmax(predictions_one_hot, axis=1)
 pd.DataFrame(predictions)
 
 # Plot the graph
-numbers_to_display = 119
+numbers_to_display = 200
 num_cells = math.ceil(math.sqrt(numbers_to_display))
 plt.figure(figsize=(10,10))
 
