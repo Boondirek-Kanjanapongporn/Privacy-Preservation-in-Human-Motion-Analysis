@@ -120,6 +120,16 @@
 * *1 hour* Weekly meeting with superadvisor
 
 ### Week 7 ---------------------------------------------------------------------------------
+## 29 October 2023
 * *1 hours* Download CUDA and cuDNN for tensorflow GPU purposes
 * *2.5 hours* Try to resolve Tensorflow not detecting GPU
 * *3 hours* Train model in local machine and on google colab
+
+## 30 October 2023
+* *2 hours* Train model in local machine and on google colab
+* *2 hours* Read about K-fold cross validation and Hyperparameter tuning
+* *4 hours* Do Hyperparameter Optimisation
+* *2 hours* Preprocess data for participant recognition
+
+## 31 October 2023
+* *2 hours* Preprocess data for participant recognition
