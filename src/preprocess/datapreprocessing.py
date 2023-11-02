@@ -96,12 +96,17 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     rows, cols = Data_spec_MTI2_processed.shape
     Data_spec_MTI2_processed = Data_spec_MTI2_processed.reshape(rows, cols, 1)
     
-    # For File Storing
-    if store and cols > 481:
-        Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=800, target_width=481)
-
+    # --------------------------
+    # For File Storing (800, 481)
+    # if store and cols > 481:
+    #     Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=800, target_width=481)
+    # --------------------------
+    # For File Storing (400, 240)
+    if store:
+        Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=400, target_width=240)
     Data_spec_MTI2_processed = Data_spec_MTI2_processed[:, :, 0]
-
+    # --------------------------
+    
     # Plot figure 2
     if showFig2:
         plt.figure()
