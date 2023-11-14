@@ -133,3 +133,17 @@
 
 ## 31 October 2023
 * *2 hours* Preprocess data for participant recognition
+* *4 hours* Train model to recognize participant recognition
+
+## 01 November 2023
+* *1 hour* Weekly meeting with superadvisor
+
+## 02 November 2023
+* *4 hours* Preprocess data for participant recognition renew
+
+## 03 November 2023
+* *1.5 hours* Train CNN model for participant
+
+### Week 8 ---------------------------------------------------------------------------------
+## 13 November 2023
+* *1.5 hours* Preprocess data again for participant recognition training
