@@ -142,8 +142,26 @@
 * *4 hours* Preprocess data for participant recognition renew
 
 ## 03 November 2023
-* *1.5 hours* Train CNN model for participant
+* *1.5 hours* Train CNN model for participant recognition
 
 ### Week 8 ---------------------------------------------------------------------------------
+## 07 November 2023
+* *1.5 hours* Train CNN model for participant recognition
+
+## 08 November 2023
+* *1 hour* Weekly meeting with superadvisor
+
+### Week 9 ---------------------------------------------------------------------------------
 ## 13 November 2023
 * *1.5 hours* Preprocess data again for participant recognition training
+
+## 14 November 2023
+* *1.5 hours* Create presentation slide for weekly meeting
+* *1.5 hours* Group the new preprocess data again and create label data
+* *1.5 hours* Code Mixup Data Augmentation
+* *2 hours* Train the CNN model with the dataset
+
+## 15 November 2023
+* *1.5 hours* Look into hyperparameter tuning
+* *0.5 hour* Create presentation slide for weekly meeting
+* *1 hour* Weekly meeting with superadvisor
