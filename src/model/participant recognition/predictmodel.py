@@ -4,11 +4,20 @@ import pandas as pd
 import math
 import matplotlib.pyplot as plt
 import seaborn as sn
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
-DATASET_FILE = "dataset1to7 Normalized R1.npy"
-LABEL_FILE = "dataset1to7 Label R1.npy"
-TRAINED_MODEL = "participant_recognition_cnn.h5"
+# Alternative 1 --------------------------------------------------------------
+# DATASET_FILE = "dataset1to6 Normalized R1.npy"
+# LABEL_FILE = "dataset1to6 Label R1.npy"
+# TRAINED_MODEL = "participant_recognition_cnn.h5"
+# ----------------------------------------------------------------------------
+
+# Alternative 2 --------------------------------------------------------------
+DATASET_FILE = "testDataset.npy"
+LABEL_FILE = "testLabel.npy"
+TRAINED_MODEL = "participant_recognition_cnn7_58.h5"
+# ----------------------------------------------------------------------------
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
@@ -17,10 +26,10 @@ labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
 # Shuffle data and labels
 indices = np.arange(len(data))
 np.random.shuffle(indices)
-
 x_test = data[indices]
 y_test = labels[indices]
 
+# Print Data shape
 print("x_test:", x_test.shape)
 print("y_test:", y_test.shape)
 
@@ -35,7 +44,7 @@ print('predictions_one_hot:', predictions_one_hot.shape)
 predictions = np.argmax(predictions_one_hot, axis=1)
 
 # Plot the graph
-numbers_to_display = 100
+numbers_to_display = 61
 num_cells = math.ceil(math.sqrt(numbers_to_display))
 plt.figure(figsize=(10,10))
 for i in range(numbers_to_display):
@@ -59,11 +68,21 @@ num_equal_values = np.sum(equal_values)
 percentage = (num_equal_values / len(y_test)) * 100
 print(f"Accuracy (%) = {percentage:.2f}%")
 
+# Calculate Precision, Recall, and F1-Score
+precision = precision_score(y_test, predictions, average='macro')
+recall = recall_score(y_test, predictions, average='macro')
+f1 = f1_score(y_test, predictions, average='macro')
+
+# Print the results
+print(f"Precision: {precision:.2f}")
+print(f"Recall: {recall:.2f}")
+print(f"F1-Score: {f1:.2f}")
+
 confusion_matrix = tf.math.confusion_matrix(predictions, y_test)
 f, ax = plt.subplots(figsize=(9, 7))
 sn.heatmap(
     confusion_matrix,
-    annot=True,
+    annot=False,
     linewidths=.5,
     fmt="d",
     square=True,
