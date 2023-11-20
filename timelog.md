@@ -165,3 +165,8 @@
 * *1.5 hours* Look into hyperparameter tuning
 * *0.5 hour* Create presentation slide for weekly meeting
 * *1 hour* Weekly meeting with superadvisor
+
+### Week 10 ---------------------------------------------------------------------------------
+## 19 November 2023
+* *3 hours* Preprocess data again for participant recognition training
+* *2 hours* Train CNN model with the dataset
