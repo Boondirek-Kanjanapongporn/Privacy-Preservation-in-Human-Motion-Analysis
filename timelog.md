@@ -169,4 +169,20 @@
 ### Week 10 ---------------------------------------------------------------------------------
 ## 19 November 2023
 * *3 hours* Preprocess data again for participant recognition training
+* *2.5 hours* Train CNN model with the dataset
+
+## 20 November 2023
+* *2 hours* Preprocess data differently from before to experiment
 * *2 hours* Train CNN model with the dataset
+* *2.5 hours* Tweak parameters to try to get better result
+
+## 21 November 2023
+* *3 hours* Try to tweak parameters to get better predicted result
+* *2 hours* Write script to group/preprocess data for participant recognition by activity
+
+## 22 November 2023
+* *2 hours* Manually tweak parameters to get better predicted result for each activity
+* *4 hours* Try to do hyper-parameter tuning to get the best parameters
+
+## 23 November 2023
+* *1 hour* Weekly meeting with superadvisor
