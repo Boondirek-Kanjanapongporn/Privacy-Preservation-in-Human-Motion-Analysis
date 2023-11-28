@@ -186,3 +186,15 @@
 
 ## 23 November 2023
 * *1 hour* Weekly meeting with superadvisor
+
+### Week 11 ---------------------------------------------------------------------------------
+## 27 November 2023
+* *4 hours* Train participant recognition by each activity and tweak parameter settings
+* *3 hours* Create multinetwork model to predict both activity and participant recognition
+* *1.5 hour* Group and preprocess data for loading into multinetwork model
+* *1.5 hour* Train multinetwork model and experiment with the parameters
+* *2 hours* Write code to using multitask model for recognition predictions on loaded test dataset
+
+## 28 November 2023
+* *2 hours* Create presentation slides for weekly meeting
+* *0.5 hour* Create weekly status report
