@@ -20,7 +20,7 @@ def mixup_data(x, y, alpha=0.2):
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 
 # Alternative 2 --------------------------------------------------------------
-activity = "sit"
+activity = "walk" # walk, sit, standup, pickup, drink, fall
 TRAINDATASET = f"trainDataset_{activity}.npy"
 TRAINLABEL = "datasetLabel.npy"
 VALIDATIONDATASET = f"validationDataset_{activity}.npy"
@@ -99,8 +99,11 @@ print('x_validate:', x_validate.shape)
 # Create Training Model
 print("Building Model:")
 
+# Model for each activity
 if activity == "walk":
-    # Walk activity
+    # Training parameters
+    train_epochs = 30
+    train_batch_size = 32
     model = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(73, (3, 3), activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
         tf.keras.layers.MaxPooling2D((2, 2)),
@@ -116,8 +119,33 @@ if activity == "walk":
         tf.keras.layers.Dense(61, activation='softmax')
     ])
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.0010249719321479076)
+
 elif activity == "sit":
-    # Sit
+    # Training parameters
+    train_epochs = 40
+    train_batch_size = 8
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, 5, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(32, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(64, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(128, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(0.45),
+        tf.keras.layers.Dense(61, activation='softmax')
+    ])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0003)
+
+elif activity == "standup":
+    # Training parameters
+    train_epochs = 30
+    train_batch_size = 16
     model = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(32, 5, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
         tf.keras.layers.MaxPooling2D((2, 2)),
@@ -132,7 +160,73 @@ elif activity == "sit":
         tf.keras.layers.Dropout(0.4),
         tf.keras.layers.Dense(61, activation='softmax')
     ])
-    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0015)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+
+
+elif activity == "pickup":
+    # Training parameters
+    train_epochs = 30
+    train_batch_size = 16
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(32, 5, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(64, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(128, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(0.4),
+        tf.keras.layers.Dense(61, activation='softmax')
+    ])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0007)
+
+elif activity == "drink":
+    # Training parameters
+    train_epochs = 40
+    train_batch_size = 8
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, 5, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(32, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(64, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(128, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(0.4),
+        tf.keras.layers.Dense(61, activation='softmax')
+    ])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0003)
+
+elif activity == "fall":
+    # Training parameters
+    train_epochs = 40
+    train_batch_size = 8
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, 5, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(32, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(64, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(128, 5, activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(0.4),
+        tf.keras.layers.Dense(61, activation='softmax')
+    ])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0003)
+
 
 print(model.summary())
 
@@ -151,19 +245,15 @@ y_validate = tf.keras.utils.to_categorical(y_validate, num_classes=61)
 # Add early stopping
 early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-# Training parameters
-train_epochs = 30
-train_batch_size = 16
-
 # Custom Training loop -------------------------------------------------------
-# # Create list for storing history footprint
+# Create list for storing history footprint
 # history_train_loss = []
 # history_train_accuracy = []
 # history_validation_loss = []
 # history_validation_accuracy = []
 
-# # with tf.device('/cpu:0'):
-# # Custom training loop with Mixup
+# with tf.device('/cpu:0'):
+# Custom training loop with Mixup
 # for epoch in range(train_epochs):
 #     print('Epoch', epoch + 1, '/', train_epochs)
 #     x_train, y_train = shuffle(x_train, y_train)  # Shuffle the data in each epoch
