@@ -50,10 +50,10 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 # TRAINLABEL = "trainLabel.npy"
 # VALIDATIONDATASET = "validationDataset.npy"
 # VALIDATIONLABEL = "validationLabel.npy"
-TRAINDATASET = "trainDataset1.npy"
-TRAINLABEL = "trainLabel1.npy"
-VALIDATIONDATASET = "validationDataset1.npy"
-VALIDATIONLABEL = "validationLabel1.npy"
+TRAINDATASET = "trainDataset30.npy"
+TRAINLABEL = "trainLabel30.npy"
+VALIDATIONDATASET = "validationDataset30.npy"
+VALIDATIONLABEL = "validationLabel30.npy"
 
 # Load data and labels
 train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
@@ -76,7 +76,6 @@ train_data = np.concatenate((train_data, train_data_fliplr))
 train_data = np.concatenate((train_data, train_data_flipud))
 train_data = np.concatenate((train_data, train_data_fliplr_flipud))
 # print(f"Train Dataset (Data Augmented): {train_data.shape}")
-
 # Extend Train label
 label_data = np.copy(train_labels)
 train_labels = np.concatenate((train_labels, label_data))
@@ -128,27 +127,27 @@ print('x_validate:', x_validate.shape)
 # Create Training Model
 print("Building Model:")
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Conv2D(32, (5, 5), activation='relu'),
+    tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
     tf.keras.layers.MaxPooling2D((2, 2)),
-    tf.keras.layers.Conv2D(64, (5, 5), activation='relu'),
+    tf.keras.layers.Conv2D(64, 3, activation='relu'),
     tf.keras.layers.MaxPooling2D((2, 2)),
-    tf.keras.layers.Conv2D(128, (5, 5), activation='relu'),
+    tf.keras.layers.Conv2D(128, 3, activation='relu'),
     tf.keras.layers.MaxPooling2D((2, 2)),
-    tf.keras.layers.Conv2D(256, (5, 5), activation='relu'),
+    tf.keras.layers.Conv2D(256, 3, activation='relu'),
     tf.keras.layers.MaxPooling2D((2, 2)),
     tf.keras.layers.Flatten(),
-    # tf.keras.layers.Dropout(0.25),
+    tf.keras.layers.Dropout(0.25),
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dropout(0.3),
     tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dropout(0.5),
-    tf.keras.layers.Dense(61, activation='softmax')
+    tf.keras.layers.Dense(30, activation='softmax')
 ])
 
 print(model.summary())
 
 print("Compile Model:")
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.00018)
 model.compile(
     optimizer=optimizer,
     loss='categorical_crossentropy',
@@ -157,8 +156,8 @@ model.compile(
 
 print("Train Model:")
 
-y_train = tf.keras.utils.to_categorical(y_train, num_classes=61)
-y_validate = tf.keras.utils.to_categorical(y_validate, num_classes=61)
+y_train = tf.keras.utils.to_categorical(y_train, num_classes=30)
+y_validate = tf.keras.utils.to_categorical(y_validate, num_classes=30)
 
 # Add early stopping
 early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
@@ -174,39 +173,39 @@ train_batch_size = 16
 # history_validation_loss = []
 # history_validation_accuracy = []
 
-# with tf.device('/cpu:0'):
-#     # Custom training loop with Mixup
-#     for epoch in range(train_epochs):
-#         print('Epoch', epoch + 1, '/', train_epochs)
-#         x_train, y_train = shuffle(x_train, y_train)  # Shuffle the data in each epoch
-#         for i in range(0, x_train.shape[0], train_batch_size):
-#             x_batch = x_train[i:i + train_batch_size]
-#             y_batch = y_train[i:i + train_batch_size]
+# # with tf.device('/cpu:0'):
+# # Custom training loop with Mixup
+# for epoch in range(train_epochs):
+#     print('Epoch', epoch + 1, '/', train_epochs)
+#     x_train, y_train = shuffle(x_train, y_train)  # Shuffle the data in each epoch
+#     for i in range(0, x_train.shape[0], train_batch_size):
+#         x_batch = x_train[i:i + train_batch_size]
+#         y_batch = y_train[i:i + train_batch_size]
 
-#             # Apply Mixup
-#             x_batch, y_batch = mixup_data(x_batch, y_batch, alpha=0.2)
+#         # Apply Mixup
+#         x_batch, y_batch = mixup_data(x_batch, y_batch, alpha=0.2)
 
-#             # Train on batch
-#             model.train_on_batch(x_batch, y_batch)
+#         # Train on batch
+#         model.train_on_batch(x_batch, y_batch)
 
-#         # Validate after each epoch
-#         train_loss, train_acc = model.evaluate(x_train, y_train)
-#         print('Training loss:', train_loss)
-#         print('Training accuracy:', train_acc)
+#     # Validate after each epoch
+#     train_loss, train_acc = model.evaluate(x_train, y_train)
+#     print('Training loss:', train_loss)
+#     print('Training accuracy:', train_acc)
 
-#         val_loss, val_acc = model.evaluate(x_validate, y_validate)
-#         print('Validation loss:', val_loss)
-#         print('Validation accuracy:', val_acc)
+#     val_loss, val_acc = model.evaluate(x_validate, y_validate)
+#     print('Validation loss:', val_loss)
+#     print('Validation accuracy:', val_acc)
 
-#         # Store into history
-#         history_train_loss.append(train_loss)
-#         history_train_accuracy.append(train_acc)
-#         history_validation_loss.append(val_loss)
-#         history_validation_accuracy.append(val_acc)
+#     # Store into history
+#     history_train_loss.append(train_loss)
+#     history_train_accuracy.append(train_acc)
+#     history_validation_loss.append(val_loss)
+#     history_validation_accuracy.append(val_acc)
 
-#         # Early stopping check
-#         if early_stopping.model is not None and early_stopping.stopped_epoch > 0:
-#             break
+#     # Early stopping check
+#     if early_stopping.model is not None and early_stopping.stopped_epoch > 0:
+#         break
 
 # plt.figure()
 # plt.xlabel('Epoch Number')
@@ -253,6 +252,11 @@ plt.legend()
 plt.show()
 # ----------------------------------------------------------------------------
 
+# Save Model
+# model_name = 'participant_recognition_cnn.h5'
+model_name = 'participant_recognition_cnn30.h5'
+model.save(model_name, save_format='h5')
+
 # Training Loss
 train_loss, train_accuracy = model.evaluate(x_train, y_train)
 print('Training loss: ', train_loss)
@@ -262,7 +266,3 @@ print('Training accuracy: ', train_accuracy)
 validation_loss, validation_accuracy = model.evaluate(x_validate, y_validate)
 print('Validation loss: ', validation_loss)
 print('Validation accuracy: ', validation_accuracy)
-
-# Save Model
-model_name = 'participant_recognition_cnn.h5'
-model.save(model_name, save_format='h5')
