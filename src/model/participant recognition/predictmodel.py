@@ -14,9 +14,9 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 # ----------------------------------------------------------------------------
 
 # Alternative 2 --------------------------------------------------------------
-DATASET_FILE = "testDataset1.npy"
-LABEL_FILE = "testLabel1.npy"
-TRAINED_MODEL = "participant_recognition_cnn.h5"
+DATASET_FILE = "testDataset30.npy"
+LABEL_FILE = "testLabel30.npy"
+TRAINED_MODEL = "participant_recognition_cnn30.h5"
 # ----------------------------------------------------------------------------
 
 # Load data and labels
@@ -44,7 +44,8 @@ print('predictions_one_hot:', predictions_one_hot.shape)
 predictions = np.argmax(predictions_one_hot, axis=1)
 
 # Plot the graph
-numbers_to_display = 61
+# numbers_to_display = 61
+numbers_to_display = 30
 num_cells = math.ceil(math.sqrt(numbers_to_display))
 plt.figure(figsize=(10,10))
 for i in range(numbers_to_display):
@@ -63,10 +64,13 @@ plt.subplots_adjust(hspace=1, wspace=0.5)
 plt.show(block=False)
 
 # Find accuracy
-equal_values = (y_test == predictions)
-num_equal_values = np.sum(equal_values)
-percentage = (num_equal_values / len(y_test)) * 100
-print(f"Accuracy (%) = {percentage:.2f}%")
+# equal_values = (y_test == predictions)
+# print(equal_values)
+# num_equal_values = np.sum(equal_values)
+# percentage = (num_equal_values / len(y_test)) * 100
+# print(f"Accuracy (%) = {percentage:.2f}%")
+accuracy = np.mean(y_test == predictions)
+print(f"Accuracy (%) = {accuracy * 100:.2f}%")
 
 # Calculate Precision, Recall, and F1-Score
 precision = precision_score(y_test, predictions, average='macro')
