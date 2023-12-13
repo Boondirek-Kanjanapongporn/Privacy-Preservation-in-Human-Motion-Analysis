@@ -6,6 +6,7 @@ import re
 RAWDATAFOLDER = "D:/Individual Project/Data"
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 PREPROCESSEDFOLDER2 = "D:/Individual Project/Preprocessed Participant Data"
+PREPROCESSEDFOLDER3 = "D:/Individual Project/Preprocessed Multitask Data"
 
 def getfilenamesfromdir(path, folder):
     fullpath = f"{path}/{folder}"
@@ -425,5 +426,143 @@ def groupDataForParticipantRecognitionByActivity():
     print("\nActivity label")
     print(f"Label: {datasetLabel.shape}")
     np.save(f"{PREPROCESSEDFOLDER2}/datasetLabel.npy", datasetLabel)
+    print("Done Saving!!")
+
+def groupDataForMultitaskRecognition():
+    testFileDataset = [6, 3, 17, 8, 6, 5, 8, 0, 15, 8, 6, 16, 13, 3, 17, 15, 0, 10, 3, 17, 14, 1, 4, 16, 2, 16, 12, 11, 12, 0, 2, 16, 7, 4, 8, 1, 7, 8, 2, 2, 16, 12, 2, 1, 5, 6, 0, 12, 9, 14, 4, 10, 13, 14, 13, 8, 1, 0, 14, 7, 0]
+    validationFileDataset = [[0, 7, 12, 13], [1, 2, 8, 13], [3, 5, 12, 16], [0, 4, 6, 16], [1, 13, 14, 15], [1, 10, 14, 17], [2, 9, 12, 15], [8, 9, 13, 17], [0, 6, 8, 13], [1, 4, 7, 13], [3, 10, 14, 15], [0, 1, 4, 5], [1, 2, 8, 11], [0, 6, 9, 16], [0, 6, 13, 16], [4, 8, 11, 12], [4, 6, 7, 8], [4, 6, 15, 16], [6, 12, 13, 16], [1, 2, 3, 7], [11, 13, 15, 16], [3, 10, 11, 13], [1, 7, 11, 16], [6, 9, 13, 15], [0, 4, 10, 12], [2, 8, 10, 12], [1, 7, 10, 14], [0, 2, 6, 14], [0, 4, 7, 14], [9, 10, 11, 17], [5, 12, 15, 17], [0, 1, 3, 10], [1, 8, 13, 17], [0, 2, 8, 13], [4, 7, 9, 11], [9, 10, 15, 16], [4, 10, 15, 17], [3, 9, 12, 13], [5, 9, 13, 17], [1, 5, 10, 14], [4, 6, 12, 15], [2, 6, 13, 17], [4, 7, 13, 17], [0, 4, 12, 16], [0, 3, 6, 13], [3, 9, 13, 14], [1, 3, 8, 10], [4, 5, 14, 15], [2, 10, 12, 16], [0, 3, 9, 17], [0, 13, 14, 16], [3, 7, 12, 17], [3, 9, 16, 17], [3, 4, 9, 10], [1, 9, 10, 17], [3, 7, 13, 15], [2, 4, 9, 13], [5, 7, 15, 16], [7, 8, 11, 17], [8, 14, 15, 17], [2, 4, 8, 13]]
+    trainDataset = []
+    trainLabel_participant = []
+    trainLabel_activity = []
+    validationDataset = []
+    validationLabel_participant = []
+    validationLabel_activity = []
+    testDataset = []
+    testLabel_participant = []
+    testLabel_activity = []
+    print("Grouping...")
+    for i in range(61):
+        print(f"Participant ID: {i}")
+        filenames = getfilenamesfromdir(f"{PREPROCESSEDFOLDER3}/Participants ID", i)
+        for j, filename in enumerate(filenames):
+            dataset = np.load(f"{PREPROCESSEDFOLDER3}/Participants ID/{i}/{filename}")
+            if j == testFileDataset[i]:
+                testLabel_participant.append(i)
+                testLabel_activity.append(int(filename[0]) - 1)
+                testDataset.append(dataset)
+            elif j in validationFileDataset[i]:
+                validationLabel_participant.append(i)
+                validationLabel_activity.append(int(filename[0]) - 1)
+                validationDataset.append(dataset)
+            else:
+                trainLabel_participant.append(i)
+                trainLabel_activity.append(int(filename[0]) - 1)
+                trainDataset.append(dataset)
+
+    trainDataset = np.array(trainDataset)
+    trainLabel_participant = np.array(trainLabel_participant)
+    trainLabel_activity = np.array(trainLabel_activity)
+    validationDataset = np.array(validationDataset)
+    validationLabel_participant = np.array(validationLabel_participant)
+    validationLabel_activity = np.array(validationLabel_activity)
+    testDataset = np.array(testDataset)
+    testLabel_participant = np.array(testLabel_participant)
+    testLabel_activity = np.array(testLabel_activity)
+    
+    print("Storing...")
+    print("Train Dataset")
+    print(f"Dataset: {trainDataset.shape}")
+    print(f"Activity Label: {trainLabel_activity.shape}")
+    print(f"Participant Label: {trainLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/trainDataset.npy", trainDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/trainLabel_activity.npy", trainLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/trainLabel_participant.npy", trainLabel_participant)
+
+    print("\nValidation Dataset")
+    print(f"Dataset: {validationDataset.shape}")
+    print(f"Activity Label: {validationLabel_activity.shape}")
+    print(f"Participant Label: {validationLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/validationDataset.npy", validationDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/validationLabel_activity.npy", validationLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/validationLabel_participant.npy", validationLabel_participant)
+
+    print("\nTest Dataset")
+    print(f"Dataset: {testDataset.shape}")
+    print(f"Activity Label: {testLabel_activity.shape}")
+    print(f"Participant Label: {testLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/testDataset.npy", testDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/testLabel_activity.npy", testLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/testLabel_participant.npy", testLabel_participant)
+    print("Done Saving!!")
+
+def groupDataForMultitaskRecognition30():
+    testFileDataset = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, 16, 12, 11, 12, 0, 2, 16, 7, 4, 8, 1, 7, 8, 2, 2, 16, 12, 2, 1, 5, 6, 0, 12, 9, 14, 4, 10, 13, 14, 13, None, None, None, None, None, None]
+    validationFileDataset = [[0, 7, 12, 13], [1, 2, 8, 13], [3, 5, 12, 16], [0, 4, 6, 16], [1, 13, 14, 15], [1, 10, 14, 17], [2, 9, 12, 15], [8, 9, 13, 17], [0, 6, 8, 13], [1, 4, 7, 13], [3, 10, 14, 15], [0, 1, 4, 5], [1, 2, 8, 11], [0, 6, 9, 16], [0, 6, 13, 16], [4, 8, 11, 12], [4, 6, 7, 8], [4, 6, 15, 16], [6, 12, 13, 16], [1, 2, 3, 7], [11, 13, 15, 16], [3, 10, 11, 13], [1, 7, 11, 16], [6, 9, 13, 15], [0, 4, 10, 12], [2, 8, 10, 12], [1, 7, 10, 14], [0, 2, 6, 14], [0, 4, 7, 14], [9, 10, 11, 17], [5, 12, 15, 17], [0, 1, 3, 10], [1, 8, 13, 17], [0, 2, 8, 13], [4, 7, 9, 11], [9, 10, 15, 16], [4, 10, 15, 17], [3, 9, 12, 13], [5, 9, 13, 17], [1, 5, 10, 14], [4, 6, 12, 15], [2, 6, 13, 17], [4, 7, 13, 17], [0, 4, 12, 16], [0, 3, 6, 13], [3, 9, 13, 14], [1, 3, 8, 10], [4, 5, 14, 15], [2, 10, 12, 16], [0, 3, 9, 17], [0, 13, 14, 16], [3, 7, 12, 17], [3, 9, 16, 17], [3, 4, 9, 10], [1, 9, 10, 17], [3, 7, 13, 15], [2, 4, 9, 13], [5, 7, 15, 16], [7, 8, 11, 17], [8, 14, 15, 17], [2, 4, 8, 13]]
+    trainDataset = []
+    trainLabel_participant = []
+    trainLabel_activity = []
+    validationDataset = []
+    validationLabel_participant = []
+    validationLabel_activity = []
+    testDataset = []
+    testLabel_participant = []
+    testLabel_activity = []
+    labelID = 0
+    print("Grouping...")
+    for i in range(61):
+        if testFileDataset[i] == None:
+            continue
+        print(f"Participant ID: {i}, labelID: {labelID}")
+        filenames = getfilenamesfromdir(f"{PREPROCESSEDFOLDER3}/Participants ID", i)
+        for j, filename in enumerate(filenames):
+            dataset = np.load(f"{PREPROCESSEDFOLDER3}/Participants ID/{i}/{filename}")
+            if j == testFileDataset[i]:
+                testLabel_participant.append(labelID)
+                testLabel_activity.append(int(filename[0]) - 1)
+                testDataset.append(dataset)
+            elif j in validationFileDataset[i]:
+                validationLabel_participant.append(labelID)
+                validationLabel_activity.append(int(filename[0]) - 1)
+                validationDataset.append(dataset)
+            else:
+                trainLabel_participant.append(labelID)
+                trainLabel_activity.append(int(filename[0]) - 1)
+                trainDataset.append(dataset)
+        labelID += 1
+
+    trainDataset = np.array(trainDataset)
+    trainLabel_participant = np.array(trainLabel_participant)
+    trainLabel_activity = np.array(trainLabel_activity)
+    validationDataset = np.array(validationDataset)
+    validationLabel_participant = np.array(validationLabel_participant)
+    validationLabel_activity = np.array(validationLabel_activity)
+    testDataset = np.array(testDataset)
+    testLabel_participant = np.array(testLabel_participant)
+    testLabel_activity = np.array(testLabel_activity)
+    
+    print("Storing...")
+    print("Train Dataset")
+    print(f"Dataset: {trainDataset.shape}")
+    print(f"Activity Label: {trainLabel_activity.shape}")
+    print(f"Participant Label: {trainLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/trainDataset30.npy", trainDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/trainLabel_activity30.npy", trainLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/trainLabel_participant30.npy", trainLabel_participant)
+
+    print("\nValidation Dataset")
+    print(f"Dataset: {validationDataset.shape}")
+    print(f"Activity Label: {validationLabel_activity.shape}")
+    print(f"Participant Label: {validationLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/validationDataset30.npy", validationDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/validationLabel_activity30.npy", validationLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/validationLabel_participant30.npy", validationLabel_participant)
+
+    print("\nTest Dataset")
+    print(f"Dataset: {testDataset.shape}")
+    print(f"Activity Label: {testLabel_activity.shape}")
+    print(f"Participant Label: {testLabel_participant.shape}")
+    np.save(f"{PREPROCESSEDFOLDER3}/testDataset30.npy", testDataset)
+    np.save(f"{PREPROCESSEDFOLDER3}/testLabel_activity30.npy", testLabel_activity)
+    np.save(f"{PREPROCESSEDFOLDER3}/testLabel_participant30.npy", testLabel_participant)
     print("Done Saving!!")
 
