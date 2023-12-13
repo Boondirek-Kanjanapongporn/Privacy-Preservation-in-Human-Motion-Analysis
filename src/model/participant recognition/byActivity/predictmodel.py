@@ -7,7 +7,7 @@ import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
-activity = "sit"
+activity = "walk" # walk, sit, standup, pickup, drink, fall
 DATASET_FILE = f"testDataset_{activity}.npy"
 LABEL_FILE = "datasetLabel.npy"
 TRAINED_MODEL = f"participant_recognition_cnn_{activity}.h5"
