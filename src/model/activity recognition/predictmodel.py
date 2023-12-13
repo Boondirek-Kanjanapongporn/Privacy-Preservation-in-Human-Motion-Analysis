@@ -4,19 +4,20 @@ import pandas as pd
 import math
 import matplotlib.pyplot as plt
 import seaborn as sn
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
-DATASET_FILE = "dataset1to7 Normalized.npy"
-LABEL_FILE = "dataset1to7 Label.npy"
+DATASET_FILE = "testDataset.npy"
+LABEL_FILE = "testLabel_activity.npy"
 TRAINED_MODEL = "activity_recognition_cnn.h5"
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
 labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
 
-# Split out data for training + validating and testing data
-START, END = 50, 50+260
-data, labels = data[START:END], labels[START:END]
+# # Split out data for training + validating and testing data
+# START, END = 50, 50+260
+# data, labels = data[START:END], labels[START:END]
 
 # Shuffle data and labels
 indices = np.arange(len(data))
@@ -40,7 +41,7 @@ predictions = np.argmax(predictions_one_hot, axis=1)
 pd.DataFrame(predictions)
 
 # Plot the graph
-numbers_to_display = 200
+numbers_to_display = 30
 num_cells = math.ceil(math.sqrt(numbers_to_display))
 plt.figure(figsize=(10,10))
 
@@ -56,9 +57,21 @@ for i in range(numbers_to_display):
     plt.ylim(-6, 6)
     clim = img.get_clim()
     plt.clim(clim[1]-0.6, clim[1])
-
 plt.subplots_adjust(hspace=1, wspace=0.5)
 plt.show(block=False)
+
+accuracy = np.mean(y_test == predictions)
+print(f"Accuracy (%) = {accuracy * 100:.2f}%")
+
+# Calculate Precision, Recall, and F1-Score
+precision = precision_score(y_test, predictions, average='macro')
+recall = recall_score(y_test, predictions, average='macro')
+f1 = f1_score(y_test, predictions, average='macro')
+
+# Print the results
+print(f"Precision: {precision:.2f}")
+print(f"Recall: {recall:.2f}")
+print(f"F1-Score: {f1:.2f}")
 
 confusion_matrix = tf.math.confusion_matrix(predictions, y_test)
 f, ax = plt.subplots(figsize=(9, 7))
