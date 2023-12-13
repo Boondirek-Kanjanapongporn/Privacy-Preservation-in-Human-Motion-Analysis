@@ -198,3 +198,38 @@
 ## 28 November 2023
 * *2 hours* Create presentation slides for weekly meeting
 * *0.5 hour* Create weekly status report
+
+## 29 November 2023
+* *1 hour* Weekly meeting with superadvisor
+
+### Week 12 ---------------------------------------------------------------------------------
+## 4 December 2023
+* *2 hours* Finish reading Accurate human activity recognition with multi‑task learning for literature review
+* *1.5 hours* Summarize the experiments that the research have done and understand the concept
+* *2 hours* Try to diagnose the bug that is causing poor participant recognition result in multi-task network
+* *1 hour* Compare the multi-task network code with the single-task participant recognition model to find the issue
+* *1 hour* Rewrite some part of the multi-task code to solve the issue
+
+## 5 December 2023
+* *3 hours* Train Multi-task model and tweak parameters
+* *2 hours* Read Differential Privacy with Weighted ϵ for Privacy-Preservation in Human Activity Recognition research paper
+* *1.5 hours* Summarize the experiments that the research have done and understand the concept
+* *1 hour* Regroup dataset and labels for 30 participant testing
+* *2 hours* Train Multi-task model and tweak parameters from the 30 participant dataset
+* *1 hour* Weekly meeting with superadvisor
+
+### Week 13 ---------------------------------------------------------------------------------
+## 12 December 2023
+* *3 hours* Re-experiment single-task activity recognition model using 30 participant dataset
+* *1.5 hours* Store the all the results for each trials and calculate the mean value
+* *3 hours* Re-experiment single-task participant recognition model using 30 participant dataset
+* *1.5 hours* Store the all the results for each trials and calculate the mean value
+
+## 13 December 2023
+* *3 hours* Re-experiment multi-task model using 30 participant dataset
+* *1.5 hours* Store the all the results for each trials and calculate the mean value
+* *2 hours* Write semester 1 status report and weekly status report
+
+## 14 December 2023
+* *0.5 hour* Weekly meeting with superadvisor
+
