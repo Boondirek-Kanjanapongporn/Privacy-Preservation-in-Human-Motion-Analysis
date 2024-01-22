@@ -9,42 +9,34 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
 
 # Alternative 2 --------------------------------------------------------------
-DATASET_FILE_ACTIVITY = "testDataset30.npy"
+TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
-DATASET_FILE_PARTICIPANT = "testDataset30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
-TRAINED_MODEL = "multitask_recognition_cnn.h5"
+TRAINED_MODEL = "multitask_recognition_cnn5_97_70.h5"
 # ----------------------------------------------------------------------------
 
 # Load data and labels
-data_activity = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE_ACTIVITY}")
-data_participant = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE_PARTICIPANT}")
+test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
 labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_ACTIVITY}")
 labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_PARTICIPANT}")
 
 # Shuffle data and labels
-indices = np.arange(len(data_activity))
+indices = np.arange(len(test_data))
 np.random.shuffle(indices)
-x_test_activity = data_activity[indices]
+x_test = test_data[indices]
 y_test_activity = labels_activity[indices]
-
-indices = np.arange(len(data_participant))
-np.random.shuffle(indices)
-x_test_participant = data_participant[indices]
 y_test_participant = labels_participant[indices]
 
 # Print Data shape
-print("x_test_activity:", x_test_activity.shape)
+print("x_test:", x_test.shape)
 print("y_test_activity:", y_test_activity.shape)
-print("x_test_participant:", x_test_participant.shape)
 print("y_test_participant:", y_test_participant.shape)
 
 # Load the model
 loaded_model = tf.keras.models.load_model(TRAINED_MODEL)
 
 # Predict the model with x_test
-predictions_one_hot_activity, _ = loaded_model.predict([x_test_activity])
-_, predictions_one_hot_participant = loaded_model.predict([x_test_participant])
+predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test])
 print('predictions_one_hot_activity:', predictions_one_hot_activity.shape)
 print('predictions_one_hot_participant:', predictions_one_hot_participant.shape)
 
@@ -65,7 +57,7 @@ for i in range(numbers_to_display):
     plt.yticks([])
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test_activity[i] else 'Reds'
-    img = plt.imshow(x_test_activity[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
+    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
     plt.xlabel(f"{predicted_label}" if predicted_label == y_test_activity[i] else f"P: {predicted_label}, R: {y_test_activity[i]}")
     plt.ylim(-6, 6)
     clim = img.get_clim()
@@ -86,7 +78,7 @@ for i in range(numbers_to_display):
     plt.yticks([])
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test_participant[i] else 'Reds'
-    img = plt.imshow(x_test_participant[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
+    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
     plt.xlabel(f"{predicted_label}" if predicted_label == y_test_participant[i] else f"P: {predicted_label}, R: {y_test_participant[i]}")
     plt.ylim(-6, 6)
     clim = img.get_clim()
