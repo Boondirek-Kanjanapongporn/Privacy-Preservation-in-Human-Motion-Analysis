@@ -5,36 +5,41 @@ import tensorflow as tf
 if __name__ == "__main__":
     PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
     PREPROCESSEDFOLDER2 = "D:/Individual Project/Preprocessed Participant Data"
-    folders = ['1 December 2017 Dataset', '2 March 2017 Dataset', '3 June 2017 Dataset', '4 July 2018 Dataset', '5 February 2019 UoG Dataset', '6 February 2019 NG Homes Dataset', '7 March 2019 West Cumbria Dataset']
-    folders_normalized = ['1 December 2017 Dataset Normalized', '2 March 2017 Dataset Normalized', '3 June 2017 Dataset Normalized', '4 July 2018 Dataset Normalized', '5 February 2019 UoG Dataset Normalized', '6 February 2019 NG Homes Dataset Normalized', '7 March 2019 West Cumbria Dataset Normalized']
+    folders = ['1 December 2017 Dataset', '3 June 2017 Dataset', '4 July 2018 Dataset', '5 February 2019 UoG Dataset', '6 February 2019 NG Homes Dataset']
+    folders_normalized = ['1 December 2017 Dataset Normalized', '3 June 2017 Dataset Normalized', '4 July 2018 Dataset Normalized', '5 February 2019 UoG Dataset Normalized', '6 February 2019 NG Homes Dataset Normalized']
+
+    # groupDataForMultitaskRecognition30()
+    # store_participant_labels(['6 February 2019 NG Homes Dataset Normalized'], '6 February 2019 NG Homes Label R1')
+    # vstack_labels(folders, "dataset1to6 Label R1")
     
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3.npy")
+    # Data Augmentation
+    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1.npy")
     # reversed_data = []
     # for d in data:
-    #     reversed_data.append(np.flipud(np.fliplr(d)))
+    #     reversed_data.append(np.fliplr(np.flipud(d)))
     # reversed_data = np.array(reversed_data)
     # print(reversed_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3 fliplr+flipud.npy", reversed_data)
+    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr+flipud.npy", reversed_data)
 
     # For dataset DA
-    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3.npy")
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3 fliplr.npy")
+    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1.npy")
+    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr.npy")
     # concat_data = np.concatenate((concat_data, data))
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3 flipud.npy")
+    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 flipud.npy")
     # concat_data = np.concatenate((concat_data, data))
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3 fliplr+flipud.npy")
+    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr+flipud.npy")
     # concat_data = np.concatenate((concat_data, data))
     # print(concat_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to7 Normalized R2&R3 + DA.npy", concat_data)
+    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 + DA.npy", concat_data)
 
     # For labels DA
-    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Label R2&R3.npy")
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to7 Label R2&R3.npy")
+    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1.npy")
+    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1.npy")
     # concat_data = np.concatenate((concat_data, data))
     # concat_data = np.concatenate((concat_data, data))
     # concat_data = np.concatenate((concat_data, data))
     # print(concat_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to7 Label R2&R3 + DA.npy", concat_data)
+    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1 + DA.npy", concat_data)
 
 
     # data = preprocess('1 December 2017 Dataset', '1P36A01R01.dat', False, True, True, True)
@@ -50,10 +55,13 @@ if __name__ == "__main__":
     # 5.2. store_activity_labels(folders)
     # 5.1. store_participant_labels(folders, '7 March 2019 West Cumbria Label R2&R3')
     # 6. vstack_labels(folders, "dataset1to7 Label")
+    # Alternative:
+    # 1. groupDataForParticipantRecognition1()
+    # 2. groupDataForParticipantRecognition2()
 
     # Other commands ------------------------------------
     # Set default option of tensorflow to use GPU
-    ''' 
+    '''
     print(tf.test.gpu_device_name())
     physical_devices = tf.config.experimental.list_physical_devices('GPU')
     print("Available GPUs:", physical_devices)
