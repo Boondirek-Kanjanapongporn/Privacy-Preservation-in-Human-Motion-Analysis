@@ -7,7 +7,7 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
 TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
-TRAINED_MODEL = "models/multitask_recognition_cnn5_97_70.h5"
+TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
 
 # Load data and labels
 test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
