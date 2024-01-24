@@ -39,7 +39,7 @@ with tf.device('/cpu:0'):
             (PARTICIPANTS, WIDTH, HEIGHT) = test_data.shape
             CHANNELS = 1
 
-            test_data = weighted_laplace_mechanism(test_data.reshape(-1, WIDTH * HEIGHT * CHANNELS), epsilon, weighted_epsilon, important_features_participant5[-k:])
+            test_data = weighted_laplace_mechanism(test_data.reshape(-1, WIDTH * HEIGHT * CHANNELS), epsilon, weighted_epsilon, important_features_participant3[-k:])
             test_data = test_data.reshape(PARTICIPANTS, WIDTH, HEIGHT)
 
             # Shuffle data and labels
