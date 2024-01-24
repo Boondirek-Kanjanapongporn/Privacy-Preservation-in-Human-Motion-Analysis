@@ -5,7 +5,7 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
-from laplacefunctions import weighted_laplace_mechanism
+from laplacefunctions import *
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
 
@@ -21,7 +21,15 @@ test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
 labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_ACTIVITY}")
 labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_PARTICIPANT}")
 
-weighted_laplace_mechanism(predictions_one_hot_participant, epsilon, weighted_epsilon, important_features)
+# Epsilon value setting
+epsilon = 0
+weighted_epsilon = 0.5
+
+(PARTICIPANTS, WIDTH, HEIGHT) = test_data.shape
+CHANNELS = 1
+
+test_data = weighted_laplace_mechanism(test_data.reshape(-1, WIDTH * HEIGHT * CHANNELS), epsilon, weighted_epsilon, important_features_participant2)
+test_data = test_data.reshape(PARTICIPANTS, WIDTH, HEIGHT)
 
 # Shuffle data and labels
 indices = np.arange(len(test_data))
@@ -37,10 +45,6 @@ print("y_test_participant:", y_test_participant.shape)
 
 # Load the model
 loaded_model = tf.keras.models.load_model(TRAINED_MODEL)
-
-# Epsilon value setting
-epsilon = 0.5
-weighted_epsilon = 0.3
 
 # Predict the model with x_test
 predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test])
