@@ -40,8 +40,9 @@ feature_importances = rf_model.feature_importances_
 
 # Identify the most important features
 print(f"Feature shape: {feature_importances.shape}")
-k = 1000
+k = 10000
 
-# Get important features (replace 'k' with the actual number)
+# Get top k most important features
 important_features = np.argsort(feature_importances)[-k:]
-print(list(important_features))
+np.savetxt('important_features.txt', important_features, fmt='%.0f')
+print("Saved Important Features")
