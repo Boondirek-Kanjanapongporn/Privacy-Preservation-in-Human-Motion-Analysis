@@ -41,7 +41,10 @@ epsilon_participant = 0.2
 
 # Predict the model with x_test
 predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test])
+
+# Apply Laplace mechanism
 predictions_one_hot_participant = laplace_mechanism(predictions_one_hot_participant, epsilon_participant)
+
 print('predictions_one_hot_activity:', predictions_one_hot_activity.shape)
 print('predictions_one_hot_participant:', predictions_one_hot_participant.shape)
 
