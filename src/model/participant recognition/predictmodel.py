@@ -16,7 +16,7 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 # Alternative 2 --------------------------------------------------------------
 DATASET_FILE = "testDataset30.npy"
 LABEL_FILE = "testLabel30.npy"
-TRAINED_MODEL = "participant_recognition_cnn30.h5"
+TRAINED_MODEL = "experimentmodels/participant_recognition_cnn30.h5"
 # ----------------------------------------------------------------------------
 
 # Load data and labels

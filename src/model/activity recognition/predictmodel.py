@@ -9,7 +9,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 DATASET_FILE = "testDataset.npy"
 LABEL_FILE = "testLabel_activity.npy"
-TRAINED_MODEL = "activity_recognition_cnn.h5"
+TRAINED_MODEL = "experimentmodels/activity_recognition_cnn.h5"
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")

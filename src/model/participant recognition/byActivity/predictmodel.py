@@ -10,7 +10,7 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 activity = "walk" # walk, sit, standup, pickup, drink, fall
 DATASET_FILE = f"testDataset_{activity}.npy"
 LABEL_FILE = "datasetLabel.npy"
-TRAINED_MODEL = f"participant_recognition_cnn_{activity}.h5"
+TRAINED_MODEL = f"experimentmodels/participant_recognition_cnn_{activity}.h5"
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
