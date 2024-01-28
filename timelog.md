@@ -12,6 +12,7 @@
 * This timelog should be filled out honestly, regularly (daily) and accurately. It is for *your* benefit.
 * Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
 
+# ### Semester 1 ###########################################################################
 ### Week 1 ---------------------------------------------------------------------------------
 ## 21 September 2023
 * *1 hour* Read the project guidance notes
@@ -233,3 +234,44 @@
 ## 14 December 2023
 * *0.5 hour* Weekly meeting with superadvisor
 
+# ### Semester 2 ###########################################################################
+### Week 1 ---------------------------------------------------------------------------------
+## 08 January 2024
+* *0.5 hour* Weekly meeting with superadvisor
+
+## 10 January 2024
+* *1.5 hours* Download and look through the dissertation template sections
+* *2 hours* Re-read Differential Privacy with Weighted ε for Privacy-Preservation in Human Activity Recognition
+* *3.5 hours* Research about random forest, differential privacy, laplace mechanism, and gini impurity
+
+## 11 January 2024
+* *1.5 hours* Implement laplace noise into the output of participant predictions to preserve privacy
+* *2 hours* Investigate the relationship of applying different epsilon value and the impact of laplace noise strength on the output data 
+
+## 12 January 2024
+* *3 hours* Write codes to run multiple tests on each levels of laplace noise and plot the results of activity and participant recognition onto a graph to explore the relationship
+* *1 hour* Build powerpoint presentation and status report for the next upcoming week
+
+### Week 2 ---------------------------------------------------------------------------------
+## 17 January 2024
+* *2.5 hours* Implement and train random forest model and use gini importance to classify/extract important features out of data regarding to participant ID recognition ordered by the most important down to the least important ones
+* *3 hours* Read more about laplace mechanism and rethink of the current privacy preservation model and improvements
+
+### Week 3 ---------------------------------------------------------------------------------
+## 22 January 2024
+* *0.5 hour* Weekly meeting with superadvisor for previous week (week 2)
+* *1 hour* Change the logic implementation of epsilon value ε from the lower the more noise strength to the higher the more noise strength
+* *2 hours* Change CNN model architecture from adding laplace noise to the output of the participant ID predictions to the input data before the CNN model prediction phase
+* *2 hours* Implemented weighted laplace/differential privacy algorithm that can apply laplace noise only to the designated features of the input data
+
+## 23 January 2024
+* *2 hours* Fix bugs and issues of the weighted laplace algorithm so that the noise is scaled correctly according to the increasement of epsilon value
+* *3.5 hours* Run experiments by using the result of gini importance to apply different epsilon value strength to top k=1000 most important features of participant recognition to see the trend/relationship between activity and participant recognition
+
+## 24 January
+* *4 hours* Run experiments by using different value of k top most important features to classify/extract partici-
+pant ID recognition to see the trend/relationship between activity and participant recognition
+* *1 hour* Build powerpoint presentation and status report for this week
+* *0.5 hour* Weekly meeting with superadvisor
+
+### Week 4 ---------------------------------------------------------------------------------
