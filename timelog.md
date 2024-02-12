@@ -275,3 +275,49 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *0.5 hour* Weekly meeting with superadvisor
 
 ### Week 4 ---------------------------------------------------------------------------------
+## 27 January 2024
+* *3 hours* Read through the hall of fame research papers to get the idea of writing
+* *1.5 hours* Plan on what to write and which section to start
+* *1 hours* Write the acknowledgement section
+
+## 29 January 2024
+* *0.5 hour* Read and sign the Education use consent
+* *2.5 hours* Write the introduction chapter
+
+## 30 January 2024
+* *1 hour* Finish writing the introduction chapter
+* *3 hours* Start writing the implementation chapter
+
+## 31 January 2024
+* *0.5 hour* Weekly meeting with superadvisor
+
+### Week 5 ---------------------------------------------------------------------------------
+## 3 February 2024
+* *3 hours* Re-read some related research papers for citing
+* *2 hours* Plan on what to write for implementation chapter
+
+## 4 January 2024
+* *1.5 hours* Continue writing the implementation chapter
+* *2.5 hours* Re-plan the goals to achieve for the project for each week
+* *2 hours* Continue writing the implementation chapter
+
+## 5 January 2024
+* *2 hours* Continue writing the implementation chapter
+* *2 hours* Create visualisation diagrams to put into the paper
+
+## 7 January 2024
+* *0.5 hour* Weekly meeting with superadvisor
+
+### Week 6 ---------------------------------------------------------------------------------
+## 10 February 2024
+* *3.5 hours* Continue writing the implementation chapter
+* *2 hours* Create more visualisation diagrams to put into the paper
+
+## 11 January 2024
+* *3.5 hours* Continue writing the implementation chapter
+
+## 12 January 2024
+* *5.5 hours* Finish writing the implementation chapter
+
+## 14 January 2024
+* *0.5 hour* Weekly meeting with superadvisor
