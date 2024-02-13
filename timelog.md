@@ -317,7 +317,8 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *3.5 hours* Continue writing the implementation chapter
 
 ## 12 January 2024
-* *5.5 hours* Finish writing the implementation chapter
+* *5 hours* Finish writing the implementation chapter
+* *2.5 hours* Design the whole table of content for my final dissertation
 
 ## 14 January 2024
 * *0.5 hour* Weekly meeting with superadvisor
