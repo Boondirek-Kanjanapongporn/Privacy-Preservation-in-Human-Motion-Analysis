@@ -5,8 +5,8 @@ import tensorflow as tf
 if __name__ == "__main__":
     PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
     PREPROCESSEDFOLDER2 = "D:/Individual Project/Preprocessed Participant Data"
-    folders = ['1 December 2017 Dataset', '3 June 2017 Dataset', '4 July 2018 Dataset', '5 February 2019 UoG Dataset', '6 February 2019 NG Homes Dataset']
-    folders_normalized = ['1 December 2017 Dataset Normalized', '3 June 2017 Dataset Normalized', '4 July 2018 Dataset Normalized', '5 February 2019 UoG Dataset Normalized', '6 February 2019 NG Homes Dataset Normalized']
+    folders = ['1 December 2017 Dataset', '2 March 2017 Dataset', '3 June 2017 Dataset', '4 July 2018 Dataset', '5 February 2019 UoG Dataset', '6 February 2019 NG Homes Dataset']
+    folders_normalized = ['1 December 2017 Dataset Normalized', '2 March 2017 Dataset Normalized', '3 June 2017 Dataset Normalized', '4 July 2018 Dataset Normalized', '5 February 2019 UoG Dataset Normalized', '6 February 2019 NG Homes Dataset Normalized', '7 March 2019 West Cumbria Dataset Normalized']
 
     # groupDataForMultitaskRecognition30()
     # store_participant_labels(['6 February 2019 NG Homes Dataset Normalized'], '6 February 2019 NG Homes Label R1')
