@@ -7,8 +7,10 @@ import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
-DATASET_FILE = "testDataset.npy"
-LABEL_FILE = "testLabel_activity.npy"
+DATASET_FILE = "testDataset30.npy"
+LABEL_FILE = "testLabel_activity30.npy"
+# DATASET_FILE = "dataset1to7 Normalized.npy"
+# LABEL_FILE = "dataset1to7 Label.npy"
 TRAINED_MODEL = "experimentmodels/activity_recognition_cnn.h5"
 
 # Load data and labels
@@ -53,7 +55,7 @@ for i in range(numbers_to_display):
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test[i] else 'Reds'
     img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test[i] else f"P: {predicted_label}, R: {y_test[i]}")
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test[i] else f"P: {predicted_label}, R: {y_test[i]}", fontsize=14, fontweight='bold')
     plt.ylim(-6, 6)
     clim = img.get_clim()
     plt.clim(clim[1]-0.6, clim[1])
@@ -81,6 +83,9 @@ sn.heatmap(
     linewidths=.5,
     fmt="d",
     square=True,
+    annot_kws={"size": 14},
     ax=ax
 )
+plt.xticks(fontsize=14, fontweight='bold')
+plt.yticks(fontsize=14, fontweight='bold')
 plt.show()
