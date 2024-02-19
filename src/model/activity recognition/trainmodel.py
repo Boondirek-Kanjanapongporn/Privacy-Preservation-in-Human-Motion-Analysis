@@ -2,6 +2,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.utils import shuffle
+import math
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 
@@ -10,26 +11,47 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 # LABEL_FILE = "dataset1to7 Label.npy"
 
 # # Load data and labels
-# data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
-# labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+# train_data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
+# train_labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
 
 # # Split out data for training + validating and testing data (predictmodel.py)
 # START1,END1 = 0, 50
 # START2, END2 = 50+260, None
-# data, labels = np.concatenate((data[START1:END1], data[START2:END2])), np.concatenate((labels[START1:END1], labels[START2:END2]))
+# train_data, train_labels = np.concatenate((train_data[START1:END1], train_data[START2:END2])), np.concatenate((train_labels[START1:END1], train_labels[START2:END2]))
+
+# # Data Augment on Train data
+# train_data_fliplr = []
+# train_data_flipud = []
+# train_data_fliplr_flipud = []
+# for d in train_data:
+#     train_data_fliplr.append(np.fliplr(d))
+#     train_data_flipud.append(np.flipud(d))
+#     train_data_fliplr_flipud.append(np.fliplr(np.flipud(d)))
+# train_data_fliplr = np.array(train_data_fliplr)
+# train_data_flipud = np.array(train_data_flipud)
+# train_data_fliplr_flipud = np.array(train_data_fliplr_flipud)
+# train_data = np.concatenate((train_data, train_data_fliplr))
+# train_data = np.concatenate((train_data, train_data_flipud))
+# train_data = np.concatenate((train_data, train_data_fliplr_flipud))
+
+# # Extend Train label
+# label_data = np.copy(train_labels)
+# train_labels = np.concatenate((train_labels, label_data))
+# train_labels = np.concatenate((train_labels, label_data))
+# train_labels = np.concatenate((train_labels, label_data))
 
 # # Shuffle data and labels
-# indices = np.arange(len(data))
+# indices = np.arange(len(train_data))
 # np.random.shuffle(indices)
 
-# shuffled_data = data[indices]
-# shuffled_labels = labels[indices]
+# shuffled_data = train_data[indices]
+# shuffled_labels = train_labels[indices]
 
 # # Define ratio for splitting up data and labels
 # train_ratio = 0.82
 
 # # Calculate the split point
-# split_point = int(len(data) * train_ratio)
+# split_point = int(len(train_data) * train_ratio)
 
 # # Split the data and labels into training and validate set
 # x_train, x_validate = shuffled_data[:split_point], shuffled_data[split_point:]
@@ -42,26 +64,48 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
 # ----------------------------------------------------------------------------
 
 # Alternative 2 --------------------------------------------------------------
-# X_TRAIN_FILE = "dataset1to6 Normalized.npy"
-# Y_TRAIN_FILE = "dataset1to6 Label.npy"
-# X_TEST_FILE = "7 March 2019 West Cumbria Dataset Normalized.npy"
-# Y_TEST_FILE = "7 March 2019 West Cumbria Label.npy"
+# X_TRAIN_FILE = "trainDataset.npy"
+# Y_TRAIN_FILE = "trainLabel_activity.npy"
+# X_TEST_FILE = "validationDataset.npy"
+# Y_TEST_FILE = "validationLabel_activity.npy"
 
-# # x_train
-# x_train = np.load(f"{PREPROCESSEDFOLDER}/{X_TRAIN_FILE}")
+# # load data
+# train_data = np.load(f"{PREPROCESSEDFOLDER}/{X_TRAIN_FILE}")
+# train_labels = np.load(f"{PREPROCESSEDFOLDER}/{Y_TRAIN_FILE}")
+# validate_data = np.load(f"{PREPROCESSEDFOLDER}/{X_TEST_FILE}")
+# validate_labels = np.load(f"{PREPROCESSEDFOLDER}/{Y_TEST_FILE}")
+
+# # Shuffle data and labels
+# train_indices = np.arange(len(train_data))
+# np.random.shuffle(train_indices)
+# x_train = train_data[train_indices]
+# y_train = train_labels[train_indices]
+
+# validate_indices = np.arange(len(validate_data))
+# np.random.shuffle(validate_indices)
+# x_validate = validate_data[validate_indices]
+# y_validate = validate_labels[validate_indices]
+
+# # Print shape
 # print(f"x train: {x_train.shape}")
-
-# # y_train
-# y_train = np.load(f"{PREPROCESSEDFOLDER}/{Y_TRAIN_FILE}")
 # print(f"y train: {y_train.shape}")
-
-# # x_validate
-# x_validate = np.load(f"{PREPROCESSEDFOLDER}/{X_TEST_FILE}")
 # print(f"x test: {x_validate.shape}")
-
-# # y_train
-# y_validate = np.load(f"{PREPROCESSEDFOLDER}/{Y_TEST_FILE}")
 # print(f"y test: {y_validate.shape}")
+
+# Display graphs and corresponding labels
+# numbers_to_display = 6
+# num_cells = math.ceil(math.sqrt(numbers_to_display))
+# plt.figure(figsize=(9,6))
+# for i in range(numbers_to_display):
+#     plt.subplot(num_cells, num_cells, i+1)
+#     img = plt.imshow(x_train[i], aspect='auto', cmap='jet', extent=[0, 20, 13, -13])
+#     plt.title(r"$\bf{Activity\ Label:}$ " + f"{y_train[i]}")
+#     plt.colorbar()
+#     plt.ylim(-6, 6)
+#     clim = img.get_clim()
+#     plt.clim(clim[1]-0.6, clim[1])
+# plt.subplots_adjust(hspace=0.7, wspace=0.5)
+# plt.show(block=True)
 # ----------------------------------------------------------------------------
 
 # Alternative 3 --------------------------------------------------------------
@@ -134,7 +178,6 @@ x_validate = x_validate.reshape(
 print('x_train:', x_train.shape)
 print('x_validate:', x_validate.shape)
 
-# Create Training Model
 print("Building Model:")
 model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
@@ -146,17 +189,35 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(256, (3, 3), activation='relu'),
     tf.keras.layers.MaxPooling2D((2, 2)),
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dropout(0.4),
     tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dropout(0.2),
     tf.keras.layers.Dense(6, activation='softmax')
 ])
 
+# # Create Training Model
+# print("Building Model:")
+# model = tf.keras.models.Sequential([
+#     tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(256, (3, 3), activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Flatten(),
+#     tf.keras.layers.Dense(128, activation='relu'),
+#     tf.keras.layers.Dropout(0.4),
+#     tf.keras.layers.Dense(64, activation='relu'),
+#     tf.keras.layers.Dropout(0.2),
+#     tf.keras.layers.Dense(6, activation='softmax')
+# ])
+
 print(model.summary())
 
 print("Compile Model:")
 optimizer = tf.keras.optimizers.Adam(learning_rate=0.0002)
+# optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005)
 model.compile(
     optimizer=optimizer,
     loss='categorical_crossentropy',
@@ -171,8 +232,10 @@ y_validate = tf.keras.utils.to_categorical(y_validate, num_classes=6)
 early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
 # Training parameters
+# train_epochs = 20
+# train_batch_size = 8
 train_epochs = 30
-train_batch_size = 16
+train_batch_size = 64
 
 # Custom Training loop -------------------------------------------------------
 # def mixup_data(x, y, alpha=0.2):
@@ -256,33 +319,36 @@ training_history = model.fit(
     validation_data=(x_validate, y_validate)
 )
 
-plt.figure()
-plt.xlabel('Epoch Number')
-plt.ylabel('Loss')
+plt.figure(figsize=(9,6))
+plt.xlabel('Epoch Number', fontsize=16, fontweight='bold')
+plt.ylabel('Loss', fontsize=16, fontweight='bold')
+plt.xticks(fontsize=16, fontweight='bold')
+plt.yticks(fontsize=16, fontweight='bold')
 plt.plot(training_history.history['loss'], label='training set')
-plt.plot(training_history.history['val_loss'], label='test set')
-plt.legend()
+plt.plot(training_history.history['val_loss'], label='validation set')
+plt.legend(fontsize=16)
 plt.show(block=False)
 
-plt.figure()
-plt.xlabel('Epoch Number')
-plt.ylabel('Accuracy')
+plt.figure(figsize=(9,6))
+plt.xlabel('Epoch Number', fontsize=16, fontweight='bold')
+plt.ylabel('Accuracy', fontsize=16, fontweight='bold')
+plt.xticks(fontsize=16, fontweight='bold')
+plt.yticks(fontsize=16, fontweight='bold')
 plt.plot(training_history.history['accuracy'], label='training set')
-plt.plot(training_history.history['val_accuracy'], label='test set')
-plt.legend()
+plt.plot(training_history.history['val_accuracy'], label='validation set')
+plt.legend(fontsize=16)
 plt.show()
 # ----------------------------------------------------------------------------
-
-# Training Loss
-train_loss, train_accuracy = model.evaluate(x_train, y_train)
-print('Training loss: ', train_loss)
-print('Training accuracy: ', train_accuracy)
-
-# Validation Loss
-validation_loss, validation_accuracy = model.evaluate(x_validate, y_validate)
-print('Validation loss: ', validation_loss)
-print('Validation accuracy: ', validation_accuracy)
-
 # Save Model
-model_name = 'activity_recognition_cnn.h5'
+model_name = 'experimentmodels/activity_recognition_cnn.h5'
 model.save(model_name, save_format='h5')
+
+# # Training Loss
+# train_loss, train_accuracy = model.evaluate(x_train, y_train)
+# print('Training loss: ', train_loss)
+# print('Training accuracy: ', train_accuracy)
+
+# # Validation Loss
+# validation_loss, validation_accuracy = model.evaluate(x_validate, y_validate)
+# print('Validation loss: ', validation_loss)
+# print('Validation accuracy: ', validation_accuracy)
