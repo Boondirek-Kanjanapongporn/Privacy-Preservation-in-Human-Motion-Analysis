@@ -56,7 +56,8 @@ def check_participants_id(folders):
 
 def vstack_preprocessdata(folder, name):
     datalist = []
-    filenames = getfilenamesfromdir(PREPROCESSEDFOLDER2, folder)
+    filenames = getfilenamesfromdir(PREPROCESSEDFOLDER, folder)
+    # filenames = getfilenamesfromdir(PREPROCESSEDFOLDER2, folder)
     for filename in filenames:
         # Repetition == 1
         # if int(re.split("R| ", filename)[1].split('.')[0]) == 1:
@@ -65,15 +66,15 @@ def vstack_preprocessdata(folder, name):
         # if int(re.split("R| ", filename)[1].split('.')[0]) == 2:
 
         # Repetition == 2 & 3
-        if int(re.split("R| ", filename)[1].split('.')[0]) in (2, 3):
+        # if int(re.split("R| ", filename)[1].split('.')[0]) in (2, 3):
             print(filename + ": ")
-            datalist.append(np.load(f"{PREPROCESSEDFOLDER2}/{folder}/{filename}"))
+            datalist.append(np.load(f"{PREPROCESSEDFOLDER}/{folder}/{filename}"))
     print("Storing...")
     print(np.array(datalist).shape)
     # Saved in activity data -----------------
-    # np.save(f"{PREPROCESSEDFOLDER}/{name}.npy", np.array(datalist))
+    np.save(f"{PREPROCESSEDFOLDER}/{name}.npy", np.array(datalist))
     # Saved in participant data --------------
-    np.save(f"{PREPROCESSEDFOLDER2}/{name}.npy", np.array(datalist))
+    # np.save(f"{PREPROCESSEDFOLDER2}/{name}.npy", np.array(datalist))
     print("Done Saving!!")
 
 def vstack_datasets(folders, name):
@@ -81,16 +82,18 @@ def vstack_datasets(folders, name):
     for folder in folders:
         print(folder + ": ")
         if vstack_datasets is None:
-            vstack_datasets = np.load(f"{PREPROCESSEDFOLDER2}/{folder} R2&R3.npy")
+            vstack_datasets = np.load(f"{PREPROCESSEDFOLDER}/{folder}.npy")
+            # vstack_datasets = np.load(f"{PREPROCESSEDFOLDER2}/{folder} R2&R3.npy")
         else:
-            dataset = np.load(f"{PREPROCESSEDFOLDER2}/{folder} R2&R3.npy")
+            dataset = np.load(f"{PREPROCESSEDFOLDER}/{folder}.npy")
+            # dataset = np.load(f"{PREPROCESSEDFOLDER2}/{folder} R2&R3.npy")
             vstack_datasets = np.vstack((vstack_datasets, dataset))
     print("Storing...")
     print(vstack_datasets.shape)
     # Saved in activity data -----------------
-    # np.save(f"{PREPROCESSEDFOLDER}/{name}.npy", vstack_datasets)
+    np.save(f"{PREPROCESSEDFOLDER}/{name}.npy", vstack_datasets)
     # Saved in participant data --------------
-    np.save(f"{PREPROCESSEDFOLDER2}/{name}.npy", vstack_datasets)
+    # np.save(f"{PREPROCESSEDFOLDER2}/{name}.npy", vstack_datasets)
     print("Done Saving!!")
 
 def store_activity_labels(folders):
