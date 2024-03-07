@@ -296,16 +296,16 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *3 hours* Re-read some related research papers for citing
 * *2 hours* Plan on what to write for implementation chapter
 
-## 4 January 2024
+## 4 February 2024
 * *1.5 hours* Continue writing the implementation chapter
 * *2.5 hours* Re-plan the goals to achieve for the project for each week
 * *2 hours* Continue writing the implementation chapter
 
-## 5 January 2024
+## 5 February 2024
 * *2 hours* Continue writing the implementation chapter
 * *2 hours* Create visualisation diagrams to put into the paper
 
-## 7 January 2024
+## 7 February 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
 ### Week 6 ---------------------------------------------------------------------------------
@@ -313,12 +313,74 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *3.5 hours* Continue writing the implementation chapter
 * *2 hours* Create more visualisation diagrams to put into the paper
 
-## 11 January 2024
+## 11 February 2024
 * *3.5 hours* Continue writing the implementation chapter
 
-## 12 January 2024
+## 12 February 2024
 * *5 hours* Finish writing the implementation chapter
 * *2.5 hours* Design the whole table of content for my final dissertation
 
-## 14 January 2024
+## 14 February 2024
 * *0.5 hour* Weekly meeting with superadvisor
+
+### Week 7 ---------------------------------------------------------------------------------
+## 17 February 2024
+* *3 hours* Rewrite some of the sentences in the implementation chapter
+* *1 hour* Design of what to write in Evaluation chapter
+* *2 hours* Write the Metrics for evaluation section of the evaluation chapter
+
+## 18 February 2024
+* *4 hours* Write Activity classification evaluation section and rerun experiments to put in the tables
+* *1.5 hours* Start writing pariticant identification evaluation
+
+## 19 February 2024
+* *3 hours* Finish writing participant identification evaluation and rerun experiments to put in the tables
+
+## 20 February 2024
+* *1 hours* Work in writing multi-task model evaluation
+
+## 21 February 2024
+* *0.5 hour* Weekly meeting with superadvisor
+
+### Week 8 ---------------------------------------------------------------------------------
+## 24 February 2024
+* *4.5 hours* Finish writing multi-task model evaluation and rerun experiments to put in the tables
+
+## 25 February 2024
+* *2 hours* Start writing privacy preservation evaluation
+
+## 26 February 2024
+* *4 hours* Finish writing differential privacy on participant output subsection
+
+## 27 February 2024
+* *2 hours* Start writing adaptive feature-based perturbation subsection
+
+## 28 February 2024
+* *3.5 hours* Finish writing adaptive feature-based perturbation subsection
+* *0.5 hour* Weekly meeting with superadvisor
+
+### Week 9 ---------------------------------------------------------------------------------
+## 29 February 2024
+* *2.5 hours* Finish writing the summary subsection of conclusion chapter
+* *1 hours* Write the limitation subsection of conclusion chapter
+
+## 2 March 2024
+* *1.5 hours* Finish writing the limitation subsection of conclusion chapter
+* *2 hours* Finish writing future works subsection of conclusion chapter
+
+## 3 March 2024
+* *3 hours* Do literature review to write for my background chapter
+* *2.5 hours* Start writing my background chapter
+
+## 4 March 2024
+* *3 hours* Find and read more related research paper and to write for my background
+* *3 hours* Finish writing my background chapter
+
+## 5 March 2024
+* *2.5 hours* Finish writing my abstract
+
+## 6 March 2024
+* *3 hours* Resolve comments made by my superadvisor to improve my dissertation quality
+
+## 7 March 2024
+* *3 hours* Resolve comments made by my superadvisor
