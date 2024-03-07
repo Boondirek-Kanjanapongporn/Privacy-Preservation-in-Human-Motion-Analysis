@@ -12,7 +12,7 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
 TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
-TRAINED_MODEL = "multitask_recognition_cnn5_97_70.h5"
+TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
 # ----------------------------------------------------------------------------
 
 # Load data and labels
@@ -43,13 +43,12 @@ def laplace_mechanism(data, epsilon):
     return noisy_data
 
 # Laplace epsilon value
-epsilon_participant = -0.01
+epsilon_participant = 0
 epsilon_accuracies = []
 epsilon_f1_scores = []
 for i in range(41):
     accuracy_list = []
     f1_score_list = []
-    epsilon_participant += 0.01
     print(f"Epsilon Value: {epsilon_participant}")
 
     for j in range(10):
@@ -96,6 +95,8 @@ for i in range(41):
     epsilon_accuracies.append(np.average(accuracy_array))
     epsilon_f1_scores.append(np.average(f1_score_array))
     print("\n")
+
+    epsilon_participant = np.round(epsilon_participant + 0.03, 2)
 
 print("Epsilon Accuracies:")
 print(epsilon_accuracies)
