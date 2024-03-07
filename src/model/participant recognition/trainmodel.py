@@ -143,11 +143,29 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(30, activation='softmax')
 ])
+# model = tf.keras.models.Sequential([
+#     tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(64, 3, activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(128, 3, activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Conv2D(256, 3, activation='relu'),
+#     tf.keras.layers.MaxPooling2D((2, 2)),
+#     tf.keras.layers.Flatten(),
+#     tf.keras.layers.Dropout(0.25),
+#     tf.keras.layers.Dense(128, activation='relu'),
+#     tf.keras.layers.Dropout(0.3),
+#     tf.keras.layers.Dense(64, activation='relu'),
+#     tf.keras.layers.Dropout(0.5),
+#     tf.keras.layers.Dense(30, activation='softmax')
+# ])
 
 print(model.summary())
 
 print("Compile Model:")
 optimizer = tf.keras.optimizers.Adam(learning_rate=0.00018)
+# optimizer = tf.keras.optimizers.Adam(learning_rate=0.00018)
 model.compile(
     optimizer=optimizer,
     loss='categorical_crossentropy',
@@ -165,6 +183,8 @@ early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5
 # Training parameters
 train_epochs = 30
 train_batch_size = 16
+# train_epochs = 30
+# train_batch_size = 16
 
 # Custom Training loop -------------------------------------------------------
 # # Create list for storing history footprint
@@ -232,29 +252,33 @@ training_history = model.fit(
     epochs=train_epochs,
     batch_size=train_batch_size, 
     validation_data=(x_validate, y_validate),
-    callbacks=[early_stopping]
+    # callbacks=[early_stopping]
 )
 
-plt.figure()
-plt.xlabel('Epoch Number')
-plt.ylabel('Loss')
+plt.figure(figsize=(9,6))
+plt.xlabel('Epoch Number', fontsize=16, fontweight='bold')
+plt.ylabel('Loss', fontsize=16, fontweight='bold')
+plt.xticks(fontsize=16, fontweight='bold')
+plt.yticks(fontsize=16, fontweight='bold')
 plt.plot(training_history.history['loss'], label='training set')
-plt.plot(training_history.history['val_loss'], label='test set')
-plt.legend()
+plt.plot(training_history.history['val_loss'], label='validation set')
+plt.legend(fontsize=16)
 plt.show(block=False)
 
-plt.figure()
-plt.xlabel('Epoch Number')
-plt.ylabel('Accuracy')
+plt.figure(figsize=(9,6))
+plt.xlabel('Epoch Number', fontsize=16, fontweight='bold')
+plt.ylabel('Accuracy', fontsize=16, fontweight='bold')
+plt.xticks(fontsize=16, fontweight='bold')
+plt.yticks(fontsize=16, fontweight='bold')
 plt.plot(training_history.history['accuracy'], label='training set')
-plt.plot(training_history.history['val_accuracy'], label='test set')
-plt.legend()
+plt.plot(training_history.history['val_accuracy'], label='validation set')
+plt.legend(fontsize=16)
 plt.show()
 # ----------------------------------------------------------------------------
 
 # Save Model
-# model_name = 'participant_recognition_cnn.h5'
-model_name = 'participant_recognition_cnn30.h5'
+# model_name = 'experimentmodels/participant_recognition_cnn.h5'
+model_name = 'experimentmodels/participant_recognition_cnn30.h5'
 model.save(model_name, save_format='h5')
 
 # Training Loss
