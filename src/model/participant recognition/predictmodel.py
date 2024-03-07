@@ -56,7 +56,7 @@ for i in range(numbers_to_display):
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test[i] else 'Reds'
     img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test[i] else f"P: {predicted_label}, R: {y_test[i]}")
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test[i] else f"P: {predicted_label}, R: {y_test[i]}", fontsize=14, fontweight='bold')
     plt.ylim(-6, 6)
     clim = img.get_clim()
     plt.clim(clim[1]-0.6, clim[1])
@@ -64,11 +64,6 @@ plt.subplots_adjust(hspace=1, wspace=0.5)
 plt.show(block=False)
 
 # Find accuracy
-# equal_values = (y_test == predictions)
-# print(equal_values)
-# num_equal_values = np.sum(equal_values)
-# percentage = (num_equal_values / len(y_test)) * 100
-# print(f"Accuracy (%) = {percentage:.2f}%")
 accuracy = np.mean(y_test == predictions)
 print(f"Accuracy (%) = {accuracy * 100:.2f}%")
 
@@ -83,13 +78,16 @@ print(f"Recall: {recall:.2f}")
 print(f"F1-Score: {f1:.2f}")
 
 confusion_matrix = tf.math.confusion_matrix(predictions, y_test)
-f, ax = plt.subplots(figsize=(9, 7))
+f, ax = plt.subplots(figsize=(14, 11))
 sn.heatmap(
     confusion_matrix,
     annot=False,
     linewidths=.5,
     fmt="d",
     square=True,
+    annot_kws={"size": 14},
     ax=ax
 )
+plt.xticks(fontweight='bold')
+plt.yticks(fontweight='bold', rotation=0)
 plt.show()
