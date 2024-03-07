@@ -44,5 +44,9 @@ k = 10000
 
 # Get top k most important features
 important_features = np.argsort(feature_importances)[-k:]
-np.savetxt('important_features.txt', important_features, fmt='%.0f')
+np.savetxt('important_features10000.txt', important_features, fmt='%.0f')
+
+k = 1000
+important_features = np.argsort(feature_importances)[-k:]
+np.savetxt('important_features1000.txt', important_features, fmt='%.0f')
 print("Saved Important Features")
