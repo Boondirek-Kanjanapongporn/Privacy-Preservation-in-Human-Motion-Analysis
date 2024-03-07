@@ -343,12 +343,12 @@ plt.show()
 model_name = 'experimentmodels/activity_recognition_cnn.h5'
 model.save(model_name, save_format='h5')
 
-# # Training Loss
-# train_loss, train_accuracy = model.evaluate(x_train, y_train)
-# print('Training loss: ', train_loss)
-# print('Training accuracy: ', train_accuracy)
+# Training Loss
+train_loss, train_accuracy = model.evaluate(x_train, y_train)
+print('Training loss: ', train_loss)
+print('Training accuracy: ', train_accuracy)
 
-# # Validation Loss
-# validation_loss, validation_accuracy = model.evaluate(x_validate, y_validate)
-# print('Validation loss: ', validation_loss)
-# print('Validation accuracy: ', validation_accuracy)
+# Validation Loss
+validation_loss, validation_accuracy = model.evaluate(x_validate, y_validate)
+print('Validation loss: ', validation_loss)
+print('Validation accuracy: ', validation_accuracy)
