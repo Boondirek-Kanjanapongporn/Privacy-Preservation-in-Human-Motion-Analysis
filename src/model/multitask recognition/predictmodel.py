@@ -58,7 +58,7 @@ for i in range(numbers_to_display):
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test_activity[i] else 'Reds'
     img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_activity[i] else f"P: {predicted_label}, R: {y_test_activity[i]}")
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_activity[i] else f"P: {predicted_label}, R: {y_test_activity[i]}", fontsize=14, fontweight='bold')
     plt.ylim(-6, 6)
     clim = img.get_clim()
     plt.clim(clim[1]-0.6, clim[1])
@@ -79,7 +79,7 @@ for i in range(numbers_to_display):
     plt.grid(False)
     color_map = 'Greens' if predicted_label == y_test_participant[i] else 'Reds'
     img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_participant[i] else f"P: {predicted_label}, R: {y_test_participant[i]}")
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_participant[i] else f"P: {predicted_label}, R: {y_test_participant[i]}", fontsize=14, fontweight='bold')
     plt.ylim(-6, 6)
     clim = img.get_clim()
     plt.clim(clim[1]-0.6, clim[1])
@@ -121,24 +121,62 @@ print(f"F1-Score: {f1_participant:.2f}")
 confusion_matrix_activity = tf.math.confusion_matrix(predictions_activity, y_test_activity)
 confusion_matrix_participant = tf.math.confusion_matrix(predictions_participant, y_test_participant)
 
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-sn.heatmap(
-    confusion_matrix_activity,
-    annot=False,
-    linewidths=.5,
-    fmt="d",
-    square=True
-)
-plt.title('Activity Recognition Confusion Matrix')
+# plt.figure(figsize=(9, 7))
+# plt.subplot(1, 2, 1)
+# sn.heatmap(
+#     confusion_matrix_activity,
+#     annot=False,
+#     linewidths=.5,
+#     fmt="d",
+#     square=True,
+#     annot_kws={"size": 14},
+# )
+# plt.title('Activity Recognition Confusion Matrix')
+# plt.xticks(fontsize=14, fontweight='bold')
+# plt.yticks(fontsize=14, fontweight='bold')
 
-plt.subplot(1, 2, 2)
+# plt.subplot(1, 2, 2)
+# sn.heatmap(
+#     confusion_matrix_participant,
+#     annot=False,
+#     linewidths=.5,
+#     fmt="d",
+#     square=True,
+#     annot_kws={"size": 14},
+# )
+# plt.title('Participant Recognition Confusion Matrix')
+# plt.xticks(fontsize=14, fontweight='bold')
+# plt.yticks(fontsize=14, fontweight='bold')
+# plt.show()
+
+# Normalise
+confusion_matrix_activity_normalized = confusion_matrix_activity / tf.reduce_sum(confusion_matrix_activity, axis=1, keepdims=True)
+activity_labels = ['Walk', 'Sit', 'Stand Up', 'Pick Up', 'Drink', 'Fall'] 
+plt.figure(figsize=(14, 11))
+ax = sn.heatmap(
+    confusion_matrix_activity_normalized,
+    annot=True,
+    linewidths=.5,
+    fmt=".2f",
+    square=True,
+    annot_kws={"size": 14},
+    xticklabels=activity_labels,
+    yticklabels=activity_labels,
+)
+ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
+plt.xticks(fontsize=14, fontweight='bold')
+plt.yticks(fontsize=14, fontweight='bold')
+plt.show(block=False)
+
+plt.figure(figsize=(14, 11))
 sn.heatmap(
     confusion_matrix_participant,
     annot=False,
     linewidths=.5,
     fmt="d",
-    square=True
+    square=True,
+    annot_kws={"size": 14},
 )
-plt.title('Participant Recognition Confusion Matrix')
+plt.xticks(fontweight='bold')
+plt.yticks(fontweight='bold', rotation=0)
 plt.show()
