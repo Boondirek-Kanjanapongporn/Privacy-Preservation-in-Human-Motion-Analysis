@@ -7,19 +7,19 @@ import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
-DATASET_FILE = "testDataset30.npy"
-LABEL_FILE = "testLabel_activity30.npy"
-# DATASET_FILE = "dataset1to7 Normalized.npy"
-# LABEL_FILE = "dataset1to7 Label.npy"
-TRAINED_MODEL = "experimentmodels/activity_recognition_cnn.h5"
+# DATASET_FILE = "testDataset30.npy"
+# LABEL_FILE = "testLabel_activity30.npy"
+DATASET_FILE = "dataset1to7 Normalized.npy"
+LABEL_FILE = "dataset1to7 Label.npy"
+TRAINED_MODEL = "experimentmodels/activity_recognition_cnn_final.h5"
 
 # Load data and labels
 data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
 labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
 
-# # Split out data for training + validating and testing data
-# START, END = 50, 50+260
-# data, labels = data[START:END], labels[START:END]
+# Split out data for training + validating and testing data
+START, END = 50, 50+260
+data, labels = data[START:END], labels[START:END]
 
 # Shuffle data and labels
 indices = np.arange(len(data))
@@ -76,16 +76,21 @@ print(f"Recall: {recall:.2f}")
 print(f"F1-Score: {f1:.2f}")
 
 confusion_matrix = tf.math.confusion_matrix(predictions, y_test)
-f, ax = plt.subplots(figsize=(9, 7))
+confusion_matrix_normalized = confusion_matrix / tf.reduce_sum(confusion_matrix, axis=1, keepdims=True)
+activity_labels = ['Walk', 'Sit', 'Stand Up', 'Pick Up', 'Drink', 'Fall'] 
+f, ax = plt.subplots(figsize=(14, 11))
 sn.heatmap(
-    confusion_matrix,
+    confusion_matrix_normalized,
     annot=True,
     linewidths=.5,
-    fmt="d",
+    fmt=".2f",
     square=True,
     annot_kws={"size": 14},
-    ax=ax
+    ax=ax,
+    xticklabels=activity_labels,
+    yticklabels=activity_labels,
 )
+ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
 plt.xticks(fontsize=14, fontweight='bold')
 plt.yticks(fontsize=14, fontweight='bold')
 plt.show()
