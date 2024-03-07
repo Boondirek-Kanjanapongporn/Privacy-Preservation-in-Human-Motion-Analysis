@@ -13,12 +13,12 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
 TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
-TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
+TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn_final.h5"
 # ----------------------------------------------------------------------------
 with tf.device('/cpu:0'):
     k = 0
-    for _ in range(10):
-        k += 100
+    for _ in range(1):
+        k += 1000
         print(f"k value: {k}")
 
         # Epsilon value setting
@@ -29,7 +29,7 @@ with tf.device('/cpu:0'):
         activity_accuracies = []
         participant_f1_scores = []
         participant_accuracies = []
-        for _ in range(31):
+        for _ in range(45):
             print(f"Weight epsilon: {weighted_epsilon}")
             # Load data and labels
             test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
@@ -39,7 +39,7 @@ with tf.device('/cpu:0'):
             (PARTICIPANTS, WIDTH, HEIGHT) = test_data.shape
             CHANNELS = 1
 
-            test_data = weighted_laplace_mechanism(test_data.reshape(-1, WIDTH * HEIGHT * CHANNELS), epsilon, weighted_epsilon, important_features_participant3[-k:])
+            test_data = weighted_laplace_mechanism(test_data.reshape(-1, WIDTH * HEIGHT * CHANNELS), epsilon, weighted_epsilon, important_features_participant4[-k:])
             test_data = test_data.reshape(PARTICIPANTS, WIDTH, HEIGHT)
 
             # Shuffle data and labels
