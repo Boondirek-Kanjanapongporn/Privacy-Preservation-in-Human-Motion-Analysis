@@ -37,7 +37,7 @@ print("y_test_participant:", y_test_participant.shape)
 loaded_model = tf.keras.models.load_model(TRAINED_MODEL)
 
 # Laplace epsilon value
-epsilon_participant = 0.2
+epsilon_participant = 0.4
 
 # Predict the model with x_test
 predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test])
@@ -51,48 +51,6 @@ print('predictions_one_hot_participant:', predictions_one_hot_participant.shape)
 # Get most confident model prediction for each array
 predictions_activity = np.argmax(predictions_one_hot_activity, axis=1)
 predictions_participant = np.argmax(predictions_one_hot_participant, axis=1)
-
-# Plot the graph activity
-numbers_to_display = 30
-num_cells = math.ceil(math.sqrt(numbers_to_display))
-plt.figure(figsize=(10,10))
-plt.title("Activity result")
-plt.axis('off')
-for i in range(numbers_to_display):
-    predicted_label = predictions_activity[i]
-    plt.subplot(num_cells, num_cells, i+1)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    color_map = 'Greens' if predicted_label == y_test_activity[i] else 'Reds'
-    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_activity[i] else f"P: {predicted_label}, R: {y_test_activity[i]}")
-    plt.ylim(-6, 6)
-    clim = img.get_clim()
-    plt.clim(clim[1]-0.6, clim[1])
-plt.subplots_adjust(hspace=1, wspace=0.5)
-plt.show(block=False)
-
-# Plot the graph participant
-numbers_to_display = 30
-num_cells = math.ceil(math.sqrt(numbers_to_display))
-plt.figure(figsize=(10,10))
-plt.title("Participant result")
-plt.axis('off')
-for i in range(numbers_to_display):
-    predicted_label = predictions_participant[i]
-    plt.subplot(num_cells, num_cells, i+1)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    color_map = 'Greens' if predicted_label == y_test_participant[i] else 'Reds'
-    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
-    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_participant[i] else f"P: {predicted_label}, R: {y_test_participant[i]}")
-    plt.ylim(-6, 6)
-    clim = img.get_clim()
-    plt.clim(clim[1]-0.6, clim[1])
-plt.subplots_adjust(hspace=1, wspace=0.5)
-plt.show(block=True)
 
 # Find accuracy
 # Calculate accuracy for activity recognition
@@ -125,28 +83,79 @@ print(f"Precision: {precision_participant:.2f}")
 print(f"Recall: {recall_participant:.2f}")
 print(f"F1-Score: {f1_participant:.2f}")
 
+# Plot the graph activity
+numbers_to_display = 30
+num_cells = math.ceil(math.sqrt(numbers_to_display))
+plt.figure(figsize=(10,10))
+plt.title("Activity result")
+plt.axis('off')
+for i in range(numbers_to_display):
+    predicted_label = predictions_activity[i]
+    plt.subplot(num_cells, num_cells, i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    color_map = 'Greens' if predicted_label == y_test_activity[i] else 'Reds'
+    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_activity[i] else f"P: {predicted_label}, R: {y_test_activity[i]}", fontsize=14, fontweight='bold')
+    plt.ylim(-6, 6)
+    clim = img.get_clim()
+    plt.clim(clim[1]-0.6, clim[1])
+plt.subplots_adjust(hspace=1, wspace=0.5)
+plt.show(block=False)
+
+# Plot the graph participant
+numbers_to_display = 30
+num_cells = math.ceil(math.sqrt(numbers_to_display))
+plt.figure(figsize=(10,10))
+plt.title("Participant result")
+plt.axis('off')
+for i in range(numbers_to_display):
+    predicted_label = predictions_participant[i]
+    plt.subplot(num_cells, num_cells, i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    color_map = 'Greens' if predicted_label == y_test_participant[i] else 'Reds'
+    img = plt.imshow(x_test[i], aspect='auto', cmap=color_map, extent=[0, 20, 13, -13])
+    plt.xlabel(f"{predicted_label}" if predicted_label == y_test_participant[i] else f"P: {predicted_label}, R: {y_test_participant[i]}", fontsize=14, fontweight='bold')
+    plt.ylim(-6, 6)
+    clim = img.get_clim()
+    plt.clim(clim[1]-0.6, clim[1])
+plt.subplots_adjust(hspace=1, wspace=0.5)
+plt.show(block=True)
+
 # Create confusion matrices
 confusion_matrix_activity = tf.math.confusion_matrix(predictions_activity, y_test_activity)
 confusion_matrix_participant = tf.math.confusion_matrix(predictions_participant, y_test_participant)
 
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-sn.heatmap(
-    confusion_matrix_activity,
-    annot=False,
+confusion_matrix_activity_normalized = confusion_matrix_activity / tf.reduce_sum(confusion_matrix_activity, axis=1, keepdims=True)
+activity_labels = ['Walk', 'Sit', 'Stand Up', 'Pick Up', 'Drink', 'Fall'] 
+plt.figure(figsize=(14, 11))
+ax = sn.heatmap(
+    confusion_matrix_activity_normalized,
+    annot=True,
     linewidths=.5,
-    fmt="d",
-    square=True
+    fmt=".2f",
+    square=True,
+    annot_kws={"size": 14},
+    xticklabels=activity_labels,
+    yticklabels=activity_labels,
 )
-plt.title('Activity Recognition Confusion Matrix')
+ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
+plt.xticks(fontsize=14, fontweight='bold')
+plt.yticks(fontsize=14, fontweight='bold')
+plt.show(block=False)
 
-plt.subplot(1, 2, 2)
+plt.figure(figsize=(14, 11))
 sn.heatmap(
     confusion_matrix_participant,
     annot=False,
     linewidths=.5,
     fmt="d",
-    square=True
+    square=True,
+    annot_kws={"size": 14},
 )
-plt.title('Participant Recognition Confusion Matrix')
+plt.xticks(fontweight='bold')
+plt.yticks(fontweight='bold', rotation=0)
 plt.show()
