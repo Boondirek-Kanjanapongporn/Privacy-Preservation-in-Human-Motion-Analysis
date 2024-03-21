@@ -133,7 +133,7 @@ print(model.summary())
 
 # Compile the model with appropriate loss functions and metrics for each task
 print("Compile Model:")
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.00015)
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
 # optimizer = tf.keras.optimizers.Adam(learning_rate=0.0003)
 model.compile(
     optimizer=optimizer,
@@ -151,10 +151,10 @@ y_train_participant = tf.keras.utils.to_categorical(y_train_participant, num_cla
 y_validate_participant = tf.keras.utils.to_categorical(y_validate_participant, num_classes=30)
 
 # Add early stopping
-early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 
 # Training parameters
-train_epochs = 45
+train_epochs = 100
 train_batch_size = 16
 # train_epochs = 30
 # train_batch_size = 16
