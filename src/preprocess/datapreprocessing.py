@@ -117,6 +117,8 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     #     Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=800, target_width=481)
     # --------------------------
     # For File Storing (400, 240)
+    if store and cols > 240:
+        Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=400, target_width=240)
     
     # Plot figure 2
     if showFig2:
