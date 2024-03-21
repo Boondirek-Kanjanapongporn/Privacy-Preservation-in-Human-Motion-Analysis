@@ -23,6 +23,16 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     record_length = len(Data) / NTS * Tsweep
     nc = record_length / Tsweep
 
+    # Plot raw data
+    # plt.figure(figsize=(8,6))
+    # plt.plot(np.abs(Data))
+    # # plt.title('Raw Radar Data')
+    # plt.xlabel('Sample Index', fontsize=22, fontweight='bold')
+    # plt.ylabel('Magnitude', fontsize=22, fontweight='bold')
+    # plt.xticks(fontsize=14, fontweight='bold')
+    # plt.yticks(fontsize=14, fontweight='bold')
+    # plt.show(block=True)
+
     # Reshape data into chirps and plot Range-Time
     Data_time = np.reshape(Data, (NTS, int(nc)), order='F')
     win = np.ones_like(Data_time)
@@ -44,11 +54,16 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     if showFig1:
         plt.figure()
         img = plt.imshow(20 * np.log10(np.abs(Data_range_MTI)), aspect='auto', cmap='jet', origin='lower')
-        plt.xlabel('No. of Sweeps')
-        plt.ylabel('Range bins')
+        plt.xlabel('No. of Sweeps', fontsize=18, fontweight='bold')
+        plt.ylabel('Range bins', fontsize=18, fontweight='bold')
         plt.title('Range Profiles after MTI filter')
-        plt.colorbar(label='Amplitude (dB)')
-        plt.ylim([1, 100])
+        cbar = plt.colorbar()
+        cbar.ax.tick_params(labelsize=16)
+        cbar.set_label(label='Amplitude (dB)', size=18, weight='bold')
+        plt.xticks(fontsize=16, fontweight='bold')
+        plt.yticks(fontsize=16, fontweight='bold')
+        plt.tight_layout()
+        plt.ylim([1, 62])
         clim = img.get_clim()
         plt.clim(clim[1]-60, clim[1])
         plt.show(block=False) if showFig2 else plt.show()
@@ -102,25 +117,26 @@ def preprocess(folder, filename, showFig1, showFig2, store, normalize):
     #     Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=800, target_width=481)
     # --------------------------
     # For File Storing (400, 240)
-    if store:
-        Data_spec_MTI2_processed = tf.image.resize_with_pad(Data_spec_MTI2_processed, target_height=400, target_width=240)
-    Data_spec_MTI2_processed = Data_spec_MTI2_processed[:, :, 0]
-    # --------------------------
     
     # Plot figure 2
     if showFig2:
         plt.figure()
         img = plt.imshow(Data_spec_MTI2_processed, aspect='auto', cmap='jet', extent=[MD["TimeAxis"][0], MD["TimeAxis"][-1], -MD["DopplerAxis"][0]*3e8/2/5.8e9, -MD["DopplerAxis"][-1]*3e8/2/5.8e9])
-        plt.colorbar()
+        cbar = plt.colorbar()
+        cbar.ax.tick_params(labelsize=16)
+        cbar.set_label(label='Amplitude (dB)', size=18, weight='bold')
         plt.ylim(-6, 6)
-        plt.xlabel('Time[s]')
-        plt.ylabel('Velocity [m/s]')
+        plt.xlabel('Time[s]', fontsize=18, fontweight='bold')
+        plt.ylabel('Velocity [m/s]', fontsize=18, fontweight='bold')
+        plt.xticks(fontsize=16, fontweight='bold')
+        plt.yticks(fontsize=16, fontweight='bold')
+        plt.tight_layout()
         clim = img.get_clim()
         if normalize:
             plt.clim(clim[1]-0.6, clim[1])
         else:
             plt.clim(clim[1]-80, clim[1])
-        plt.title(filepath.split('/')[-1])
+        # plt.title(filepath.split('/')[-1])
         plt.show()
 
     return Data_spec_MTI2_processed
