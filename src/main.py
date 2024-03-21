@@ -15,47 +15,11 @@ if __name__ == "__main__":
     # preprocess('1 December 2017 Dataset', '5P36A05R01.dat', False, True, False, False)
     # preprocess('1 December 2017 Dataset', '6P36A06R01.dat', False, True, False, False)
 
-    # groupDataForMultitaskRecognition30()
-    # store_participant_labels(['6 February 2019 NG Homes Dataset Normalized'], '6 February 2019 NG Homes Label R1')
-    # vstack_labels(folders, "dataset1to6 Label R1")
-    
-    # Data Augmentation
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1.npy")
-    # reversed_data = []
-    # for d in data:
-    #     reversed_data.append(np.fliplr(np.flipud(d)))
-    # reversed_data = np.array(reversed_data)
-    # print(reversed_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr+flipud.npy", reversed_data)
-
-    # For dataset DA
-    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1.npy")
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr.npy")
-    # concat_data = np.concatenate((concat_data, data))
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 flipud.npy")
-    # concat_data = np.concatenate((concat_data, data))
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 fliplr+flipud.npy")
-    # concat_data = np.concatenate((concat_data, data))
-    # print(concat_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Normalized R1 + DA.npy", concat_data)
-
-    # For labels DA
-    # concat_data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1.npy")
-    # data = np.load(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1.npy")
-    # concat_data = np.concatenate((concat_data, data))
-    # concat_data = np.concatenate((concat_data, data))
-    # concat_data = np.concatenate((concat_data, data))
-    # print(concat_data.shape)
-    # np.save(f"{PREPROCESSEDFOLDER2}/dataset1to6 Label R1 + DA.npy", concat_data)
-
-
-    # data = preprocess('1 December 2017 Dataset', '1P36A01R01.dat', False, True, True, True)
-
     # Example Commands ------------------------------------
     # folders_normalized = ['1 December 2017 Dataset Normalized', '2 March 2017 Dataset Normalized', '3 June 2017 Dataset Normalized', '4 July 2018 Dataset Normalized', '5 February 2019 UoG Dataset Normalized', '6 February 2019 NG Homes Dataset Normalized', '7 March 2019 West Cumbria Dataset Normalized']
     # folders = ['1 December 2017 Dataset', '2 March 2017 Dataset', '3 June 2017 Dataset', '4 July 2018 Dataset', '5 February 2019 UoG Dataset', '6 February 2019 NG Homes Dataset', '7 March 2019 West Cumbria Dataset']
     # folders_label = ['1 December 2017 Label', '2 March 2017 Label', '3 June 2017 Label', '4 July 2018 Label', '5 February 2019 UoG Label', '6 February 2019 NG Homes Label', '7 March 2019 West Cumbria Label']
-    # 1. preprocess('1 December 2017 Dataset', '1P36A01R01.dat', False, True, False, False)
+    # 1. preprocess('1 December 2017 Dataset', '1P36A01R01.dat', False, True, True, True)
     # 2. are_folders_clear(folders)
     # 3. vstack_preprocessdata('3 June 2017 Dataset Normalized', '3 June 2017 Dataset Normalized R1')
     # 4. vstack_datasets(folders_normalized, "dataset1to7 Normalized R1")
