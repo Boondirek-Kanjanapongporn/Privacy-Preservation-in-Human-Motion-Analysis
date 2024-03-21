@@ -43,18 +43,23 @@ def laplace_mechanism(data, epsilon):
     return noisy_data
 
 # Laplace epsilon value
-epsilon_participant = 0
-epsilon_accuracies = []
-epsilon_f1_scores = []
+epsilon = 0
+epsilon_accuracies_activity = []
+epsilon_f1_scores_activity = []
+epsilon_accuracies_participant = []
+epsilon_f1_scores_participant = []
 for i in range(41):
-    accuracy_list = []
-    f1_score_list = []
-    print(f"Epsilon Value: {epsilon_participant}")
+    accuracy_list_activity = []
+    f1_score_list_activity = []
+    accuracy_list_participant = []
+    f1_score_list_participant = []
+    print(f"Epsilon Value: {epsilon}")
 
     for j in range(10):
         # Predict the model with x_test
-        predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test], verbose=0)
-        predictions_one_hot_participant = laplace_mechanism(predictions_one_hot_participant, epsilon_participant)
+        x_test_added_noised = laplace_mechanism(x_test, epsilon)
+
+        predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test_added_noised], verbose=0)
 
         # Get most confident model prediction for each array
         predictions_activity = np.argmax(predictions_one_hot_activity, axis=1)
@@ -62,21 +67,20 @@ for i in range(41):
 
         # Find accuracy
         # # Calculate accuracy for activity recognition
-        # accuracy_activity = np.mean(predictions_activity == y_test_activity)
-        # print(f"Activity Recognition Accuracy: {accuracy_activity * 100:.2f}%")
+        accuracy_activity = np.mean(predictions_activity == y_test_activity)
+        accuracy_list_activity.append(accuracy_activity * 100)
 
         # Calculate accuracy for participant recognition
         accuracy_participant = np.mean(predictions_participant == y_test_participant)
-        accuracy_list.append(accuracy_participant * 100)
+        accuracy_list_participant.append(accuracy_participant * 100)
 
-        # # Calculate Precision, Recall, and F1-Score
-        # precision_activity = precision_score(y_test_activity, predictions_activity, average='macro')
-        # recall_activity = recall_score(y_test_activity, predictions_activity, average='macro')
-        # f1_activity = f1_score(y_test_activity, predictions_activity, average='macro')
+        # # Calculate F1-Score for activity classification
+        f1_activity = f1_score(y_test_activity, predictions_activity, average='macro')
+        f1_score_list_activity.append(f1_activity)
 
         # Calculate F1-Score for participant recognition
         f1_participant = f1_score(y_test_participant, predictions_participant, average='macro')
-        f1_score_list.append(f1_participant)
+        f1_score_list_participant.append(f1_participant)
 
     # # Print the results for activity recognition
     # print("Activity Recognition Metrics:")
@@ -84,22 +88,39 @@ for i in range(41):
     # print(f"Recall: {recall_activity:.2f}")
     # print(f"F1-Score: {f1_activity:.2f}")
 
-    accuracy_array = np.array(accuracy_list)
-    f1_score_array = np.array(f1_score_list)
+    accuracy_array_activity = np.array(accuracy_list_activity)
+    f1_score_array_activity = np.array(f1_score_list_activity)
+    accuracy_array_participant = np.array(accuracy_list_participant)
+    f1_score_array_participant = np.array(f1_score_list_participant)
+
+    # Print the results for activity classification
+    print("Activity classification Metrics Average:")
+    print(f"Accuracy: {np.average(accuracy_array_activity):.2f}")
+    print(f"F1-Score: {np.average(f1_score_array_activity):.2f}")
 
     # Print the results for participant recognition
     print("Participant Recognition Metrics Average:")
-    print(f"Accuracy: {np.average(accuracy_array):.2f}")
-    print(f"F1-Score: {np.average(f1_score_array):.2f}")
+    print(f"Accuracy: {np.average(accuracy_array_participant):.2f}")
+    print(f"F1-Score: {np.average(f1_score_array_participant):.2f}")
 
-    epsilon_accuracies.append(np.average(accuracy_array))
-    epsilon_f1_scores.append(np.average(f1_score_array))
+    epsilon_accuracies_activity.append(np.average(accuracy_array_activity))
+    epsilon_f1_scores_activity.append(np.average(f1_score_array_activity))
+    epsilon_accuracies_participant.append(np.average(accuracy_array_participant))
+    epsilon_f1_scores_participant.append(np.average(f1_score_array_participant))
     print("\n")
 
-    epsilon_participant = np.round(epsilon_participant + 0.03, 2)
+    epsilon = np.round(epsilon + 0.01, 2)
 
-print("Epsilon Accuracies:")
-print(epsilon_accuracies)
+print("Epsilon Accuracies Activity:")
+print(epsilon_accuracies_activity)
 
-print("Epsilon F1 score:")
-print(epsilon_f1_scores)
+print("Epsilon F1 score Activity:")
+print(epsilon_f1_scores_activity)
+
+print("\n")
+
+print("Epsilon Accuracies Participant:")
+print(epsilon_accuracies_participant)
+
+print("Epsilon F1 score Participant:")
+print(epsilon_f1_scores_participant)
