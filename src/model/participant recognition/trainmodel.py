@@ -3,20 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.utils import shuffle
 
-def mixup_data(x, y, alpha=0.2):
-    # Applies the Mixup augmentation
-    if alpha > 0:
-        lam = np.random.beta(alpha, alpha)
-    else:
-        lam = 1
-
-    batch_size = x.shape[0]
-    index = np.random.permutation(batch_size)
-
-    mixed_x = lam * x + (1 - lam) * x[index, :]
-    mixed_y = lam * y + (1 - lam) * y[index, :]
-    return mixed_x, mixed_y
-
 PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 
 # Alternative 1 --------------------------------------------------------------
@@ -126,6 +112,7 @@ print('x_validate:', x_validate.shape)
 
 # Create Training Model
 print("Building Model:")
+
 model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
     tf.keras.layers.MaxPooling2D((2, 2)),
@@ -143,6 +130,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(30, activation='softmax')
 ])
+
 # model = tf.keras.models.Sequential([
 #     tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(WIDTH, HEIGHT, CHANNELS)),
 #     tf.keras.layers.MaxPooling2D((2, 2)),
@@ -164,7 +152,7 @@ model = tf.keras.models.Sequential([
 print(model.summary())
 
 print("Compile Model:")
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.00018)
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.00015)
 # optimizer = tf.keras.optimizers.Adam(learning_rate=0.00018)
 model.compile(
     optimizer=optimizer,
@@ -178,15 +166,29 @@ y_train = tf.keras.utils.to_categorical(y_train, num_classes=30)
 y_validate = tf.keras.utils.to_categorical(y_validate, num_classes=30)
 
 # Add early stopping
-early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 
 # Training parameters
-train_epochs = 30
-train_batch_size = 16
+train_epochs = 100
+train_batch_size = 32
 # train_epochs = 30
 # train_batch_size = 16
 
 # Custom Training loop -------------------------------------------------------
+# def mixup_data(x, y, alpha=0.2):
+#     # Applies the Mixup augmentation
+#     if alpha > 0:
+#         lam = np.random.beta(alpha, alpha)
+#     else:
+#         lam = 1
+
+#     batch_size = x.shape[0]
+#     index = np.random.permutation(batch_size)
+
+#     mixed_x = lam * x + (1 - lam) * x[index, :]
+#     mixed_y = lam * y + (1 - lam) * y[index, :]
+#     return mixed_x, mixed_y
+
 # # Create list for storing history footprint
 # history_train_loss = []
 # history_train_accuracy = []
@@ -252,7 +254,7 @@ training_history = model.fit(
     epochs=train_epochs,
     batch_size=train_batch_size, 
     validation_data=(x_validate, y_validate),
-    # callbacks=[early_stopping]
+    callbacks=[early_stopping]
 )
 
 plt.figure(figsize=(9,6))
