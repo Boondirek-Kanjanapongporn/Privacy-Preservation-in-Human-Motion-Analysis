@@ -78,7 +78,7 @@ print(f"F1-Score: {f1:.2f}")
 confusion_matrix = tf.math.confusion_matrix(predictions, y_test)
 confusion_matrix_normalized = confusion_matrix / tf.reduce_sum(confusion_matrix, axis=1, keepdims=True)
 activity_labels = ['Walk', 'Sit', 'Stand Up', 'Pick Up', 'Drink', 'Fall'] 
-f, ax = plt.subplots(figsize=(14, 11))
+f, ax = plt.subplots(figsize=(12, 10))
 sn.heatmap(
     confusion_matrix_normalized,
     annot=True,
@@ -93,4 +93,6 @@ sn.heatmap(
 ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
 plt.xticks(fontsize=14, fontweight='bold')
 plt.yticks(fontsize=14, fontweight='bold')
+plt.xlabel('Actual Label', fontsize=14, fontweight='bold')
+plt.ylabel('Prediction Label', fontsize=14, fontweight='bold')
 plt.show()
