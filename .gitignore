@@ -1,4 +1,4 @@
-raw_data/
+data/
 __pycache__/
 trainedmodel/
 experimentmodels/
