@@ -166,6 +166,8 @@ ax = sn.heatmap(
 ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
 plt.xticks(fontsize=14, fontweight='bold')
 plt.yticks(fontsize=14, fontweight='bold')
+plt.xlabel('Actual Label', fontsize=14, fontweight='bold')
+plt.ylabel('Prediction Label', fontsize=14, fontweight='bold')
 plt.show(block=False)
 
 plt.figure(figsize=(14, 11))
@@ -179,4 +181,6 @@ sn.heatmap(
 )
 plt.xticks(fontweight='bold')
 plt.yticks(fontweight='bold', rotation=0)
+plt.xlabel('Actual Label', fontsize=14, fontweight='bold')
+plt.ylabel('Prediction Label', fontsize=14, fontweight='bold')
 plt.show()
