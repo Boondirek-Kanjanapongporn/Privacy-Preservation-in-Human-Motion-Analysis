@@ -384,3 +384,57 @@ pant ID recognition to see the trend/relationship between activity and participa
 
 ## 7 March 2024
 * *3 hours* Resolve comments made by my superadvisor
+
+### Week 10 ---------------------------------------------------------------------------------
+## 8 March 2024
+* *2 hours* Think and start planning out the subsections for requirement chapter
+* *1 hour* Start writing requirement chapter
+
+## 9 March 2024
+* *3 hours* Finish writing requirement chapter
+* *2 hours* Plan on what to write for design chapter
+* *1.5 hours* Start writing out the design chapter
+
+## 10 March 2024
+* *2.5 hours* Work on the design chapter and rewrite some parts of the requirement chapter
+
+## 11 March 2024
+* *2 hours* Finish writing the design chapter
+
+## 13 March 2024
+* *0.5 hour* Weekly meeting with superadvisor
+* *1 hour* Adjust sections in requirement and design chapter
+
+### Week 11 ---------------------------------------------------------------------------------
+## 15 March 2024
+* *4 hours* Continue resolving new comments from my superadvisor to improve quality
+
+## 16 March 2024
+* *2 hours* Finish resolving superadvisor's comments
+* *3 hours* Resolve comments from superadvisor's phd student to improve quality
+
+## 17 March 2024
+* *1 hour* Finish resolving comments gotten from the phd student
+* *3 hours* Continue working on improving the dissertation in implementation chapter
+* *4 hours* Code using SHAP framrwork to Look into SHAP values and evaluate on them
+
+## 18 March 2024
+* *2 hours* Finish evaluation in SHAP values
+* *4 hours* Continue improve the dissertation in implementationchapter
+* *3 hours* Work on the powerpoint slides
+
+## 19 March 2024
+* *4 hours* Continue and finish working on the powerpoint slides
+* *5 hours* Start improving dissertation for evaluation chapter
+
+## 20 March 2024
+* *1 hour* Weekly meeting with superadvisor
+* *6 hours* Finish improving dissertation for evaluation chapter
+
+## 21 March 2024
+* *3 hours* Finish improving dissertation for conclusion chapter
+* *3 hours* upload data into the project folder, from local and rewrite the code to load data correctly
+* *4 hours* Work on improve abstract and go back to fix some issues in the first few chapters
+
+
+
