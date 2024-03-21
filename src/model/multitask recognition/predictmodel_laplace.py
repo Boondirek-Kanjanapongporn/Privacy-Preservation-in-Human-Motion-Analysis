@@ -37,14 +37,13 @@ print("y_test_participant:", y_test_participant.shape)
 loaded_model = tf.keras.models.load_model(TRAINED_MODEL)
 
 # Laplace epsilon value
-epsilon_participant = 0.4
+epsilon = 0.14
 
 # Predict the model with x_test
-predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test])
+x_test_noisy = laplace_mechanism(x_test, epsilon)
+predictions_one_hot_activity, predictions_one_hot_participant = loaded_model.predict([x_test_noisy])
 
 # Apply Laplace mechanism
-predictions_one_hot_participant = laplace_mechanism(predictions_one_hot_participant, epsilon_participant)
-
 print('predictions_one_hot_activity:', predictions_one_hot_activity.shape)
 print('predictions_one_hot_participant:', predictions_one_hot_participant.shape)
 
@@ -129,7 +128,8 @@ plt.show(block=True)
 confusion_matrix_activity = tf.math.confusion_matrix(predictions_activity, y_test_activity)
 confusion_matrix_participant = tf.math.confusion_matrix(predictions_participant, y_test_participant)
 
-confusion_matrix_activity_normalized = confusion_matrix_activity / tf.reduce_sum(confusion_matrix_activity, axis=1, keepdims=True)
+confusion_matrix_activity = tf.cast(confusion_matrix_activity, dtype=tf.float32)
+confusion_matrix_activity_normalized = confusion_matrix_activity / (tf.reduce_sum(confusion_matrix_activity, axis=1, keepdims=True) + 1e-10)
 activity_labels = ['Walk', 'Sit', 'Stand Up', 'Pick Up', 'Drink', 'Fall'] 
 plt.figure(figsize=(14, 11))
 ax = sn.heatmap(
@@ -145,6 +145,8 @@ ax = sn.heatmap(
 ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
 plt.xticks(fontsize=14, fontweight='bold')
 plt.yticks(fontsize=14, fontweight='bold')
+plt.xlabel('Actual Label', fontsize=14, fontweight='bold')
+plt.ylabel('Prediction Label', fontsize=14, fontweight='bold')
 plt.show(block=False)
 
 plt.figure(figsize=(14, 11))
@@ -158,4 +160,6 @@ sn.heatmap(
 )
 plt.xticks(fontweight='bold')
 plt.yticks(fontweight='bold', rotation=0)
+plt.xlabel('Actual Label', fontsize=14, fontweight='bold')
+plt.ylabel('Prediction Label', fontsize=14, fontweight='bold')
 plt.show()
