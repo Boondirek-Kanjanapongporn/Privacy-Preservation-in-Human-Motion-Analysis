@@ -1,18 +1,28 @@
 import numpy as np
 import tensorflow as tf
 import shap
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "./"
+PREPROCESSEDFOLDER = "../../data/processed"
 
 TRAINDATASET = "trainDataset30.npy"
 VALIDATIONDATASET = "validationDataset30.npy"
 TESTDATASET = "testDataset30.npy"
-TRAINED_MODEL = "multitask_recognition_cnn5_97_70.h5"
+TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
+
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+train_data_path = data_folder / TRAINDATASET
+validation_labels_path = data_folder / VALIDATIONDATASET
+test_data_path = data_folder / TESTDATASET
 
 # Load data and labels
-train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
-validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
-test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET}")
+# train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
+# validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
+# test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET}")
+train_data = np.load(train_data_path)
+validate_data = np.load(validation_labels_path)
+test_data = np.load(test_data_path)
 
 x_test = test_data
 

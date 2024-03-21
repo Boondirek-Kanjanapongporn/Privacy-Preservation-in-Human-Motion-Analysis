@@ -2,16 +2,25 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 import optuna
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
+PREPROCESSEDFOLDER = "../../../data/processed"
 
 # Load Data  --------------------------------------------------------------
 DATASET_FILE = "dataset1to7 Normalized.npy"
 LABEL_FILE = "dataset1to7 Label.npy"
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+data_path = data_folder / DATASET_FILE
+labels_path = data_folder / LABEL_FILE
+
 # Load data and labels
-data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
-labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+# data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
+# labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+data = np.load(data_path)
+labels = np.load(labels_path)
 
 # Split out data for training + validating and testing data (predictmodel.py)
 START, END = 260, None

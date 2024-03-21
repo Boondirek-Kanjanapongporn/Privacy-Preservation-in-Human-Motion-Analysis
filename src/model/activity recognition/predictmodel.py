@@ -5,17 +5,26 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Activity Data"
+PREPROCESSEDFOLDER = "../../../data/processed" 
 # DATASET_FILE = "testDataset30.npy"
 # LABEL_FILE = "testLabel_activity30.npy"
 DATASET_FILE = "dataset1to7 Normalized.npy"
 LABEL_FILE = "dataset1to7 Label.npy"
 TRAINED_MODEL = "experimentmodels/activity_recognition_cnn_final.h5"
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+data_path = data_folder / DATASET_FILE
+labels_path = data_folder / LABEL_FILE
+
 # Load data and labels
-data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
-labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+# data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
+# labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+data = np.load(data_path)
+labels = np.load(labels_path)
 
 # Split out data for training + validating and testing data
 START, END = 50, 50+260

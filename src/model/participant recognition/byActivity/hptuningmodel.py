@@ -2,8 +2,10 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 import optuna
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+PREPROCESSEDFOLDER = "../../../../data/processed"
 
 # Load Data  --------------------------------------------------------------
 TRAINDATASET = "trainDataset_walk.npy"
@@ -11,11 +13,22 @@ TRAINLABEL = "datasetLabel.npy"
 VALIDATIONDATASET = "validationDataset_walk.npy"
 VALIDATIONLABEL = "datasetLabel.npy"
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+train_data_path = data_folder / TRAINDATASET
+train_labels_path = data_folder / TRAINLABEL
+validation_data_path = data_folder / VALIDATIONDATASET
+validation_labels_path = data_folder / VALIDATIONLABEL
+
 # Load data and labels
-train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
-train_labels = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL}")
-validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
-validate_labels = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL}")
+# train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
+# train_labels = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL}")
+# validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
+# validate_labels = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL}")
+train_data = np.load(train_data_path)
+train_labels = np.load(train_labels_path)
+validate_data = np.load(validation_data_path)
+validate_labels = np.load(validation_labels_path)
 
 # Data Augment on Train data
 train_data_fliplr = []

@@ -5,16 +5,26 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+PREPROCESSEDFOLDER = "../../../../data/processed"
+
 activity = "walk" # walk, sit, standup, pickup, drink, fall
 DATASET_FILE = f"testDataset_{activity}.npy"
 LABEL_FILE = "datasetLabel.npy"
 TRAINED_MODEL = f"experimentmodels/participant_recognition_cnn_{activity}.h5"
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+data_path = data_folder / DATASET_FILE
+labels_path = data_folder / LABEL_FILE
+
 # Load data and labels
-data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
-labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+# data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
+# labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+data = np.load(data_path)
+labels = np.load(labels_path)
 
 # Shuffle data and labels
 indices = np.arange(len(data))

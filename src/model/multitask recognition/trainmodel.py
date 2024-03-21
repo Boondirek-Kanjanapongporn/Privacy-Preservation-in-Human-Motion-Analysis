@@ -2,8 +2,10 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.utils import shuffle
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
+PREPROCESSEDFOLDER = "../../../data/processed"
 
 # Alternative 1 --------------------------------------------------------------
 TRAINDATASET = "trainDataset30.npy"
@@ -13,13 +15,28 @@ VALIDATIONDATASET = "validationDataset30.npy"
 VALIDATIONLABEL_ACTIVITY = "validationLabel_activity30.npy"
 VALIDATIONLABEL_PARTICIPANT = "validationLabel_participant30.npy"
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+train_data_path = data_folder / TRAINDATASET
+train_labels_path_activity = data_folder / TRAINLABEL_ACTIVITY
+train_labels_path_participant = data_folder / TRAINLABEL_PARTICIPANT
+validate_data_path = data_folder / VALIDATIONDATASET
+validate_labels_path_activity = data_folder / VALIDATIONLABEL_ACTIVITY
+validate_labels_path_participant = data_folder / VALIDATIONLABEL_PARTICIPANT
+
 # Load data and labels
-train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
-train_labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL_ACTIVITY}")
-train_labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL_PARTICIPANT}")
-validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
-validate_labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL_ACTIVITY}")
-validate_labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL_PARTICIPANT}")
+# train_data = np.load(f"{PREPROCESSEDFOLDER}/{TRAINDATASET}")
+# train_labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL_ACTIVITY}")
+# train_labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{TRAINLABEL_PARTICIPANT}")
+# validate_data = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONDATASET}")
+# validate_labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL_ACTIVITY}")
+# validate_labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{VALIDATIONLABEL_PARTICIPANT}")
+train_data = np.load(train_data_path)
+train_labels_activity = np.load(train_labels_path_activity)
+train_labels_participant = np.load(train_labels_path_participant)
+validate_data = np.load(validate_data_path)
+validate_labels_activity = np.load(validate_labels_path_activity)
+validate_labels_participant = np.load(validate_labels_path_participant)
 
 # Data Augment on Train data
 train_data_fliplr = []

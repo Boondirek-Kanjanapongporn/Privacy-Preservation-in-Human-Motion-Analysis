@@ -5,8 +5,11 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
+PREPROCESSEDFOLDER = "../../../data/processed"
+
 # Alternative 1 --------------------------------------------------------------
 # DATASET_FILE = "dataset1to6 Normalized R1.npy"
 # LABEL_FILE = "dataset1to6 Label R1.npy"
@@ -15,13 +18,20 @@ PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Participant Data"
 
 # Alternative 2 --------------------------------------------------------------
 DATASET_FILE = "testDataset30.npy"
-LABEL_FILE = "testLabel30.npy"
+LABEL_FILE = "testLabel_participant30.npy"
 TRAINED_MODEL = "experimentmodels/participant_recognition_cnn30_final.h5"
 # ----------------------------------------------------------------------------
 
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+data_path = data_folder / DATASET_FILE
+labels_path = data_folder / LABEL_FILE
+
 # Load data and labels
-data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
-labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+# data = np.load(f"{PREPROCESSEDFOLDER}/{DATASET_FILE}")
+# labels = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE}")
+data = np.load(data_path)
+labels = np.load(labels_path)
 
 # Shuffle data and labels
 indices = np.arange(len(data))

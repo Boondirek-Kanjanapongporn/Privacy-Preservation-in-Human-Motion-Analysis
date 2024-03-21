@@ -5,20 +5,32 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.metrics import precision_score, recall_score, f1_score
+from pathlib import Path
 
-PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
+# PREPROCESSEDFOLDER = "D:/Individual Project/Preprocessed Multitask Data"
+PREPROCESSEDFOLDER = "../../../data/processed"
 
 # Alternative 2 --------------------------------------------------------------
 TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
 TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
+
+script_location = Path(__file__).resolve().parent
+data_folder = script_location / PREPROCESSEDFOLDER
+data_path = data_folder / TESTDATASET_FILE
+labels_path_activity = data_folder / LABEL_FILE_ACTIVITY
+labels_path_participant = data_folder / LABEL_FILE_PARTICIPANT
+
 # ----------------------------------------------------------------------------
 
 # Load data and labels
-test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
-labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_ACTIVITY}")
-labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_PARTICIPANT}")
+# test_data = np.load(f"{PREPROCESSEDFOLDER}/{TESTDATASET_FILE}")
+# labels_activity = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_ACTIVITY}")
+# labels_participant = np.load(f"{PREPROCESSEDFOLDER}/{LABEL_FILE_PARTICIPANT}")
+test_data = np.load(data_path)
+labels_activity = np.load(labels_path_activity)
+labels_participant = np.load(labels_path_participant)
 
 # Shuffle data and labels
 indices = np.arange(len(test_data))
