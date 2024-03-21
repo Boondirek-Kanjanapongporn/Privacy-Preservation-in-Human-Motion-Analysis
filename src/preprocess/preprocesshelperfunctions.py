@@ -1,10 +1,17 @@
 import numpy as np
+from pathlib import Path
+
+PREPROCESSEDFOLDER = "../../data/raw"
 
 def getfilepath1(filename):
-    return 'src/raw_data/' + filename
+    return 'data/raw/1 December 2017 Dataset Normalized' + filename
 
 def getfilepath2(folder, filename):
-    return 'D:/Individual Project/Data/' + folder + '/' + filename
+    # return 'D:/Individual Project/Data/' + folder + '/' + filename
+    script_location = Path(__file__).resolve().parent
+    data_folder = script_location / PREPROCESSEDFOLDER
+    data_path = data_folder / folder / filename
+    return data_path
 
 def complex_converter(s):
     if 'i' in s:
