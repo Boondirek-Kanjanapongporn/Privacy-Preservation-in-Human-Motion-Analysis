@@ -45,7 +45,7 @@
 
 \usepackage{microtype} % improve typography
 \usepackage{anyfontsize} % allow any size of font
-\usepackage{amsmath,amsfonts,amsbsy,amssymb}
+\usepackage{amsmath}
 \usepackage[style]{abstract} % abstract styling
 
 % set bibliography styling
@@ -98,11 +98,18 @@
 }
 %% ---
 
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
 % nice number printing
 \usepackage{numprint}
 
 % allow PDF graphics
 \usepackage{graphicx}
+\usepackage{caption}
+\captionsetup[figure]{belowskip=-10pt}
+\captionsetup[subfigure]{belowskip=5pt}
 
 % allow section styling
 %\usepackage{sectsty}
@@ -245,6 +252,10 @@ textfont=it,tableposition=above]{caption}
 }
 
 % highlight boxes
+\newenvironment{acknowledgements}
+{\chapter*{Acknowledgements}}
+{\par\vskip 1em}
+
 \usepackage{tcolorbox}
 \newenvironment{highlight}
 {\begin{tcolorbox}[notitle,boxrule=0pt,colback=green!10,colframe=green!10]}
