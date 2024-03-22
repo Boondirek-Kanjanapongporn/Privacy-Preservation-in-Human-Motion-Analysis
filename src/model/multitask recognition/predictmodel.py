@@ -14,7 +14,9 @@ PREPROCESSEDFOLDER = "../../../data/processed"
 TESTDATASET_FILE = "testDataset30.npy"
 LABEL_FILE_ACTIVITY = "testLabel_activity30.npy"
 LABEL_FILE_PARTICIPANT = "testLabel_participant30.npy"
-TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
+TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn_final.h5"
+# Uncomment the trained model if you want to see the prediction performance of the model used in privacy-preservation evaluation
+# TRAINED_MODEL = "experimentmodels/multitask_recognition_cnn5_97_70.h5"
 
 script_location = Path(__file__).resolve().parent
 data_folder = script_location / PREPROCESSEDFOLDER
