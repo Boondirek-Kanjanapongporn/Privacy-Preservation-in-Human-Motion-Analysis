@@ -440,6 +440,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 22 March 2024
 * *2 hours* Resolve superadvisor's comment on the presentation
 * *2 hours* Practice and record presentation video
+* *1 hour* Refine the conclusion chapter
 
 
 
