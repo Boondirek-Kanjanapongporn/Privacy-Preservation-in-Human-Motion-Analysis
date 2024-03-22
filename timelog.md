@@ -235,7 +235,7 @@
 * *0.5 hour* Weekly meeting with superadvisor
 
 # ### Semester 2 ###########################################################################
-### Week 1 ---------------------------------------------------------------------------------
+### Week 14 ---------------------------------------------------------------------------------
 ## 08 January 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
@@ -252,12 +252,12 @@
 * *3 hours* Write codes to run multiple tests on each levels of laplace noise and plot the results of activity and participant recognition onto a graph to explore the relationship
 * *1 hour* Build powerpoint presentation and status report for the next upcoming week
 
-### Week 2 ---------------------------------------------------------------------------------
+### Week 15 ---------------------------------------------------------------------------------
 ## 17 January 2024
 * *2.5 hours* Implement and train random forest model and use gini importance to classify/extract important features out of data regarding to participant ID recognition ordered by the most important down to the least important ones
 * *3 hours* Read more about laplace mechanism and rethink of the current privacy preservation model and improvements
 
-### Week 3 ---------------------------------------------------------------------------------
+### Week 16 ---------------------------------------------------------------------------------
 ## 22 January 2024
 * *0.5 hour* Weekly meeting with superadvisor for previous week (week 2)
 * *1 hour* Change the logic implementation of epsilon value ε from the lower the more noise strength to the higher the more noise strength
@@ -274,7 +274,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *1 hour* Build powerpoint presentation and status report for this week
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 4 ---------------------------------------------------------------------------------
+### Week 17 ---------------------------------------------------------------------------------
 ## 27 January 2024
 * *3 hours* Read through the hall of fame research papers to get the idea of writing
 * *1.5 hours* Plan on what to write and which section to start
@@ -291,7 +291,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 31 January 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 5 ---------------------------------------------------------------------------------
+### Week 18 ---------------------------------------------------------------------------------
 ## 3 February 2024
 * *3 hours* Re-read some related research papers for citing
 * *2 hours* Plan on what to write for implementation chapter
@@ -308,7 +308,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 7 February 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 6 ---------------------------------------------------------------------------------
+### Week 19 ---------------------------------------------------------------------------------
 ## 10 February 2024
 * *3.5 hours* Continue writing the implementation chapter
 * *2 hours* Create more visualisation diagrams to put into the paper
@@ -323,7 +323,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 14 February 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 7 ---------------------------------------------------------------------------------
+### Week 20 ---------------------------------------------------------------------------------
 ## 17 February 2024
 * *3 hours* Rewrite some of the sentences in the implementation chapter
 * *1 hour* Design of what to write in Evaluation chapter
@@ -342,7 +342,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 21 February 2024
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 8 ---------------------------------------------------------------------------------
+### Week 21 ---------------------------------------------------------------------------------
 ## 24 February 2024
 * *4.5 hours* Finish writing multi-task model evaluation and rerun experiments to put in the tables
 
@@ -359,7 +359,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *3.5 hours* Finish writing adaptive feature-based perturbation subsection
 * *0.5 hour* Weekly meeting with superadvisor
 
-### Week 9 ---------------------------------------------------------------------------------
+### Week 22 ---------------------------------------------------------------------------------
 ## 29 February 2024
 * *2.5 hours* Finish writing the summary subsection of conclusion chapter
 * *1 hours* Write the limitation subsection of conclusion chapter
@@ -385,7 +385,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 ## 7 March 2024
 * *3 hours* Resolve comments made by my superadvisor
 
-### Week 10 ---------------------------------------------------------------------------------
+### Week 23 ---------------------------------------------------------------------------------
 ## 8 March 2024
 * *2 hours* Think and start planning out the subsections for requirement chapter
 * *1 hour* Start writing requirement chapter
@@ -405,7 +405,7 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *0.5 hour* Weekly meeting with superadvisor
 * *1 hour* Adjust sections in requirement and design chapter
 
-### Week 11 ---------------------------------------------------------------------------------
+### Week 24 ---------------------------------------------------------------------------------
 ## 15 March 2024
 * *4 hours* Continue resolving new comments from my superadvisor to improve quality
 
@@ -435,6 +435,11 @@ pant ID recognition to see the trend/relationship between activity and participa
 * *3 hours* Finish improving dissertation for conclusion chapter
 * *3 hours* upload data into the project folder, from local and rewrite the code to load data correctly
 * *4 hours* Work on improve abstract and go back to fix some issues in the first few chapters
+* *4 hours* Refine the dissertation
+
+## 22 March 2024
+* *2 hours* Resolve superadvisor's comment on the presentation
+* *2 hours* Practice and record presentation video
 
 
 
