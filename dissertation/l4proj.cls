@@ -105,12 +105,6 @@
 % nice number printing
 \usepackage{numprint}
 
-% allow PDF graphics
-\usepackage{graphicx}
-\usepackage{caption}
-% \captionsetup[figure]{belowskip=-10pt}
-% \captionsetup[subfigure]{belowskip=5pt}
-
 % allow section styling
 %\usepackage{sectsty}
 
